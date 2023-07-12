@@ -1,0 +1,63 @@
+{
+  "Create function": {
+    "scope": "typescript,typescriptreact",
+    "prefix": ["arrow-function", "fn"],
+    "body": ["const $1 = () => "]
+  },
+  "Create react component": {
+    "scope": "typescriptreact",
+    "prefix": ["react-component", "rc"],
+    "body": [
+      "const ${TM_DIRECTORY/^.+[\\/\\\\]+(.*)$/$1/} = () => {",
+      "  return (",
+      "    ",
+      "  )",
+      "}",
+      "",
+      "export default ${TM_DIRECTORY/^.+[\\/\\\\]+(.*)$/$1/};"
+    ]
+  },
+  "Create styled component": {
+    "scope": "typescript",
+    "prefix": ["styled-component", "sc"],
+    "body": [
+      "import styled from 'styled-components';",
+      "import * as mui from '@mui/material';",
+      "",
+      "export const Container = styled.div``"
+    ]
+  },
+  "Create useState": {
+    "scope": "typescriptreact",
+    "prefix": ["use-state", "us"],
+    "body": ["const [state, setState] = useState();"]
+  },
+  "Create useEffect": {
+    "scope": "typescriptreact",
+    "prefix": ["use-effect", "ue"],
+    "body": ["useEffect(() => {", "", "}, [])"]
+  },
+  "Create context": {
+    "scope": "typescriptreact",
+    "prefix": ["context"],
+    "body": [
+      "import { ReactNode, useState, useCallback } from 'react';",
+      "import { createContext } from 'use-context-selector';",
+      "import { createUseContext } from '~/functions/createUseContext';",
+      "",
+      "const useProviderValues = () => {",
+      "  return {};",
+      "};",
+      "",
+      "type ${TM_FILENAME_BASE}Values = ReturnType<typeof useProviderValues>;",
+      "",
+      "const ${TM_FILENAME_BASE} = createContext({} as ${TM_FILENAME_BASE}Values);",
+      "",
+      "export const use${TM_FILENAME_BASE} = createUseContext(${TM_FILENAME_BASE});",
+      "",
+      "export const ${TM_FILENAME_BASE/Context/$1/}Provider = (props: { children: ReactNode }) => (",
+      "  <${TM_FILENAME_BASE}.Provider value={useProviderValues()} {...props} />",
+      ");"
+    ]
+  }
+}

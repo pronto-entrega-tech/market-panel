@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1024"
+   height="1024"
+   viewBox="0 0 270.93333 270.93333"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (c4e8f9e, 2021-05-24)"
+   sodipodi:docname="logo-icon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="0.42440064"
+     inkscape:cx="724.55122"
+     inkscape:cy="733.97627"
+     inkscape:window-width="1312"
+     inkscape:window-height="723"
+     inkscape:window-x="23"
+     inkscape:window-y="94"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1"
+     units="px"
+     width="1024px"
+     showguides="true"
+     showborder="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid29860"
+       snapvisiblegridlinesonly="true"
+       visible="true"
+       enabled="false"
+       originx="135.46667"
+       originy="135.46667"
+       dotted="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect39444"
+       is_visible="true"
+       lpeversion="1"
+       satellites_param="F,0,0,1,0,3.175,0,1 @ F,0,0,1,0,3.175,0,1 @ F,0,0,1,0,3.175,0,1 @ F,0,0,1,0,3.175,0,1 @ F,0,0,1,0,3.175,0,1 @ F,0,0,1,0,3.175,0,1 @ F,0,0,1,0,3.175,0,1 @ F,0,0,1,0,3.175,0,1 @ F,0,0,1,0,3.175,0,1 @ F,0,0,1,0,3.175,0,1 | F,0,0,1,0,2.7073277,0,1 @ F,0,0,1,0,3.175,0,1 @ F,0,0,1,0,2,0,1 @ F,0,0,1,0,3.175,0,1 @ F,0,0,1,0,2,0,1"
+       unit="px"
+       method="auto"
+       mode="F"
+       radius="12"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect39126"
+       is_visible="true"
+       lpeversion="1"
+       satellites_param="F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1"
+       unit="px"
+       method="auto"
+       mode="F"
+       radius="0"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline">
+    <path
+       id="rect30091"
+       style="fill:#ffffff;stroke-width:0.828456"
+       d="M 5.2922523,52.485055 A 4.7342741,4.7497439 0 0 0 0.96734426,59.166817 L 9.7666663,78.996652 a 11.225552,11.262233 0 0 0 10.2551927,6.68176 H 180.42905 c 4.02619,0 10.57396,-0.0559 14.554,0.52971 21.59321,3.17764 38.66745,20.306468 41.83475,41.970258 0.58377,3.99301 0.58377,10.58351 0,14.57654 -3.16732,21.66381 -20.24154,38.79265 -41.83475,41.97024 -3.98003,0.58571 -10.52781,0.52975 -14.554,0.52975 H 64.210667 a 4.7342715,4.7497413 0 0 0 -4.324906,6.68176 l 8.799315,19.82983 a 11.225557,11.262238 0 0 0 10.2552,6.68177 H 180.42905 c 4.02619,0 10.5609,0.0331 14.5706,-0.31783 39.87089,-3.48875 71.63601,-35.35766 75.1134,-75.35884 0.34972,-4.02279 0.34972,-10.58711 0,-14.6099 -3.47737,-40.001138 -35.24251,-71.870072 -75.1134,-75.358803 -4.0097,-0.350853 -10.54441,-0.317842 -14.5706,-0.317842 z M 190.59405,110.57223 a 24.813271,24.894351 0 0 0 -24.81274,24.895 24.813271,24.894351 0 0 0 24.81274,24.89384 24.813271,24.894351 0 0 0 24.81396,-24.89384 24.813271,24.894351 0 0 0 -24.81396,-24.895 z m -156.916401,8.29833 a 4.0369262,4.0501173 0 0 0 -3.687738,5.6973 l 9.235957,20.81311 a 11.225543,11.262224 0 0 0 10.255203,6.68177 H 136.3755 c 2.53617,0 3.87961,-1.94094 3.25349,-4.40571 -0.41097,-1.61769 -0.74031,-3.2547 -0.9872,-4.90449 -0.59725,-3.99099 -0.59725,-10.5808 0,-14.57178 0.24689,-1.64979 0.57623,-3.28679 0.9872,-4.90449 0.62612,-2.46477 -0.71732,-4.40571 -3.25349,-4.40571 z" />
+  </g>
+</svg>

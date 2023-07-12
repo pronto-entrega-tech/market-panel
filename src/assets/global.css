@@ -1,0 +1,75 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url('../assets/fonts/roboto-latin-400.woff2') format('woff2');
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../assets/fonts/roboto-latin-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../assets/fonts/roboto-latin-700.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@keyframes animate-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+:root {
+  --background: #fdfdfd;
+  --primaryLight: #21adf8;
+  --primary: #2196f3;
+  --error: #d32f2f;
+  --hover: rgba(0, 0, 0, 0.04);
+  --selected: rgba(0, 0, 0, 0.08);
+  --divider: rgba(0, 0, 0, 0.05);
+  --unselected: rgba(0, 0, 0, 0.4);
+  --subtitle: rgba(0, 0, 0, 0.8);
+  --body: rgba(0, 0, 0, 0.75);
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0px;
+  height: -webkit-fill-available;
+  user-select: none;
+  -webkit-user-select: none;
+  color: rgba(0, 0, 0, 0.86);
+  font-family: 'Roboto';
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 6px !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(11, 20, 26, 0.2);
+}
+
+img {
+  -webkit-user-drag: none;
+}
+
+#target {
+  height: -webkit-fill-available;
+}

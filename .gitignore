@@ -1,0 +1,31 @@
+# Environment variables
+.env
+
+# Dependency directories
+node_modules/
+
+# Manual testing
+.test.ts
+
+# Logs
+logs
+*.log
+
+# Coverage directory
+coverage
+
+# Bundled files
+build/
+
+# Packed app
+dist/
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+.DS_Store
