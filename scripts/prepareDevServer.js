@@ -22,4 +22,4 @@ try {
 }
 
 // Start the webpack development server
-exec('npm run dev-server');
+exec('npm run dev');
