@@ -29,7 +29,7 @@ import {
   OrderButton,
 } from "./styles";
 import Chat from "./Chat";
-import { OrderType } from "~/core/types";
+import { OrderAction, OrderType } from "~/core/types";
 import { moneyString } from "~/functions/money";
 import { getStatusName, getStatusColor } from "~/functions/orderStatus";
 import { api } from "~/services/api";
@@ -37,6 +37,7 @@ import { Central } from "~/components/Central/styles";
 import { useLoading } from "~/hooks/useLoading";
 import { formatTime, formatOrderId } from "~/functions/format";
 import { useOpenChatContext } from "~/contexts/ChatContext";
+import { match } from "ts-pattern";
 
 const getOrderInfo = (o: OrderType) => {
   const id = formatOrderId(o.market_order_id);
@@ -72,19 +73,7 @@ const OpenChatButton = (p: { order: OrderType }) => {
 };
 
 function OrderDetails({ order }: { order?: OrderType }) {
-  const [isLoading, , withLoading] = useLoading();
-
   if (!order) return <Central>Nenhum pedido selecionado ainda</Central>;
-
-  const [buttonTitle, nextAction] =
-    {
-      APPROVAL_PENDING: ["Confirmar", "APPROVE"],
-      PROCESSING: ["Sair para entrega", "DELIVERY"],
-    }[order.status] ?? [];
-
-  const action = withLoading(async () => {
-    await api.orders.update(order.order_id, nextAction);
-  });
 
   return (
     <Container>
@@ -137,12 +126,41 @@ function OrderDetails({ order }: { order?: OrderType }) {
           </TableBody>
         </Table>
       </OrderTableContainer>
-      {buttonTitle && (
-        <OrderButton onClick={action} loading={isLoading}>
-          {buttonTitle}
-        </OrderButton>
-      )}
+      {match(order.status)
+        .with("APPROVAL_PENDING", () => (
+          <ActionButton
+            order_id={order.order_id}
+            action="APPROVE"
+            title="Confirmar"
+          />
+        ))
+        .with("PROCESSING", () => (
+          <ActionButton
+            order_id={order.order_id}
+            action="DELIVERY"
+            title="Sair para entrega"
+          />
+        ))
+        .otherwise(() => null)}
     </Container>
+  );
+}
+
+function ActionButton(p: {
+  order_id: string;
+  action: OrderAction;
+  title: string;
+}) {
+  const [isLoading, , withLoading] = useLoading();
+
+  const action = withLoading(async () => {
+    await api.orders.update(p.order_id, p.action);
+  });
+
+  return (
+    <OrderButton onClick={action} loading={isLoading}>
+      {p.title}
+    </OrderButton>
   );
 }
 

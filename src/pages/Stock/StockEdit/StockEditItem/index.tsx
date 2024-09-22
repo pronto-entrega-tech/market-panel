@@ -32,20 +32,21 @@ import {
   useStockEditItemContext,
 } from "~/contexts/StockEditContext";
 import { omit } from "~/functions/omit";
+import { match } from "ts-pattern";
 
 const hasADefinedProp = (o: Record<string, unknown>) =>
   Object.values(o).reduce<boolean>((_, v) => !!v, false);
 
-const getDiscountLabels = (v: DiscountType | ""): [string, string] =>
-  ({
-    DISCOUNT_VALUE: ["Valor promocional", ""],
-    DISCOUNT_PERCENT: ["Porcentagem do desconto", ""],
-    DISCOUNT_PERCENT_ON_SECOND: [
+const getDiscountLabels = (v: DiscountType | "") =>
+  match(v)
+    .with("DISCOUNT_VALUE", () => ["Valor promocional", ""])
+    .with("DISCOUNT_PERCENT", () => ["Porcentagem do desconto", ""])
+    .with("DISCOUNT_PERCENT_ON_SECOND", () => [
       "Porcentagem do desconto",
       "Quantidade mínima",
-    ],
-    ONE_FREE: ["Quantidade mínima", "Quantidade grátis"],
-  })[v] ?? ["", ""];
+    ])
+    .with("ONE_FREE", () => ["Quantidade mínima", "Quantidade grátis"])
+    .otherwise(() => ["", ""]);
 
 function StockEditItem({ productKey }: { productKey: string }) {
   const { unselectStock, updateStock } = useStockEditContext();

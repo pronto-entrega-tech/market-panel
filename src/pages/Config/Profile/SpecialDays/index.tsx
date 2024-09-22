@@ -83,10 +83,12 @@ const SpecialDays = ({
           value={lightFormat(date, "yyyy-MM-dd")}
           onChange={(e) => setBHsDate(i, new Date(e.target.value))}
         />
-        {[
-          [open_time, "open_time", "Abre"],
-          [close_time, "close_time", "Fecha"],
-        ].map(([time, prop, name]) => (
+        {(
+          [
+            [open_time, "open_time", "Abre"],
+            [close_time, "close_time", "Fecha"],
+          ] as const
+        ).map(([time, prop, name]) => (
           <TimeField
             key={prop}
             label={name}

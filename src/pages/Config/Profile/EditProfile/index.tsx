@@ -47,7 +47,6 @@ const payments = [
 ];
 
 const EditProfile = ({
-  hasError,
   profile,
   setProfile,
 }: ReturnType<typeof useProfileState>) => {
@@ -81,12 +80,7 @@ const EditProfile = ({
     ? digitsMask
     : undefined;
 
-  const props: [
-    string,
-    string,
-    ((v?: string) => string)?,
-    { prefix?: string; suffix?: string; type?: string }?,
-  ][] = [
+  const props = [
     ["name", "Nome"],
     ["document", "CNPJ", CNPJMask],
     [
@@ -115,10 +109,15 @@ const EditProfile = ({
       { prefix: "Máximo", suffix: "minutos", type: "half" },
     ],
     ["pix_key", "Chave pix", pixKeyMask, { type: "half2" }],
-  ];
+  ] satisfies [
+    keyof CreateMarketDto,
+    string,
+    ((v: string) => string)?,
+    { prefix?: string; suffix?: string; type?: string }?,
+  ][];
 
   const createAccount = withLoading(async () => {
-    const [hasErr, errs] = props.reduce<[boolean, Record<string, boolean>]>(
+    const [hasErr, errs] = props.reduce(
       ([hasErr, errs], [prop]) => {
         const value = dto[prop];
         if (Array.isArray(value) ? value.length : value) return [hasErr, errs];
@@ -127,7 +126,7 @@ const EditProfile = ({
 
         return [true, produce(errs, (errs) => void (errs[prop] = true))];
       },
-      [false, {}],
+      [false, {}] as [boolean, Record<string, boolean>],
     );
 
     if (hasErr)
@@ -167,11 +166,16 @@ const EditProfile = ({
   };
 
   const inputs = props.map(
-    ([prop, name, mask = (v) => v, { prefix, suffix, type } = {} as any]) => (
+    ([
+      prop,
+      name,
+      mask = (v: string) => v,
+      { prefix, suffix, type } = {} as any,
+    ]) => (
       <Input
         key={name}
         label={name}
-        value={mask(dto[prop]) || ""}
+        value={mask(dto[prop] ?? "")}
         onChange={({ target: { value } }) => {
           setDto(
             produce((dto) => void (dto[prop] = mask(value.slice(0, 256)))),

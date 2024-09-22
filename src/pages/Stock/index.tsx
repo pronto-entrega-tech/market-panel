@@ -130,7 +130,7 @@ const StockSelect = ({
         itemSize={75}
       >
         {({ index, style }) => {
-          const product = productsValues[index];
+          const product = productsValues[index]!;
           return (
             <div key={product.key} style={style}>
               <StockItem

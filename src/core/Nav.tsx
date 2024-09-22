@@ -5,7 +5,7 @@ import {
   Cart as OrdersIcon,
   PackageVariantClosed as StockIcon,
   Cog as ConfigIcon,
-  HelpCircle as HelpIcon,
+  /* HelpCircle as HelpIcon, */
 } from "mdi-material-ui";
 import { Page } from "~/constants/pages";
 import { Logo } from "~/components/Logo";

@@ -75,6 +75,7 @@
     "secure-electron-store": "^4.0.2",
     "socket.io-client": "^4.5.1",
     "styled-components": "^5.3.5",
+    "ts-pattern": "^5.3.1",
     "use-context-selector": "^1.4.1"
   },
   "devDependencies": {

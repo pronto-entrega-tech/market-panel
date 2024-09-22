@@ -86,12 +86,7 @@ const SignOn = (p: { createToken: string }) => {
     ? digitsMask
     : undefined;
 
-  const props: [
-    string,
-    string,
-    ((v?: string) => string)?,
-    { prefix?: string; suffix?: string; type?: string }?,
-  ][] = [
+  const props = [
     ["name", "Nome"],
     ["document", "CNPJ", CNPJMask],
     [
@@ -120,7 +115,12 @@ const SignOn = (p: { createToken: string }) => {
       { prefix: "Máximo", suffix: "minutos", type: "half" },
     ],
     ["pix_key", "Chave pix", pixKeyMask, { type: "half2" }],
-  ];
+  ] satisfies [
+    keyof CreateMarketDto,
+    string,
+    ((v: string) => string)?,
+    { prefix?: string; suffix?: string; type?: string }?,
+  ][];
 
   const createAccount = withLoading(async () => {
     const [hasErr, errs] = props.reduce<[boolean, Record<string, boolean>]>(
@@ -196,7 +196,7 @@ const SignOn = (p: { createToken: string }) => {
   };
 
   const setBHsDays = (index: number, days: string[]) => {
-    setDto(produce((dto) => void (dto.business_hours[index].days = days)));
+    setDto(produce((dto) => void (dto.business_hours[index]!.days = days)));
   };
 
   const setBHsTimes = (
@@ -204,7 +204,7 @@ const SignOn = (p: { createToken: string }) => {
     times: Partial<Pick<BusinessHour, "open_time" | "close_time">>,
   ) => {
     setDto(
-      produce((dto) => void Object.assign(dto.business_hours[index], times)),
+      produce((dto) => void Object.assign(dto.business_hours[index]!, times)),
     );
   };
 
@@ -215,11 +215,16 @@ const SignOn = (p: { createToken: string }) => {
   };
 
   const inputs = props.map(
-    ([prop, name, mask = (v) => v, { prefix, suffix, type } = {} as any]) => (
+    ([
+      prop,
+      name,
+      mask = (v: string) => v,
+      { prefix, suffix, type } = {} as any,
+    ]) => (
       <Input
         key={name}
         label={name}
-        value={mask(dto[prop]) || ""}
+        value={mask(dto[prop] ?? "")}
         onChange={({ target: { value } }) => {
           setDto(
             produce((dto) => void (dto[prop] = mask(value.slice(0, 256)))),
@@ -252,15 +257,17 @@ const SignOn = (p: { createToken: string }) => {
           onChange={(_, values) => setBHsDays(i, values)}
         >
           {weekDays.map(([day, name]) => (
-            <ToggleButton key={day} value={day}>
+            <ToggleButton key={day} value={day != null}>
               {name}
             </ToggleButton>
           ))}
         </ToggleButtonGroup>
-        {[
-          [open_time, "open_time", "Abre"],
-          [close_time, "close_time", "Fecha"],
-        ].map(([time, prop, name]) => (
+        {(
+          [
+            [open_time, "open_time", "Abre"],
+            [close_time, "close_time", "Fecha"],
+          ] as const
+        ).map(([time, prop, name]) => (
           <TimeField
             key={prop}
             label={name}

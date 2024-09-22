@@ -43,7 +43,7 @@ function StockEdit() {
         itemSize={189}
       >
         {({ index, style }) => {
-          const key = keys[index];
+          const key = keys[index]!;
           return (
             <div key={key} style={style}>
               <StockEditItem productKey={key} />

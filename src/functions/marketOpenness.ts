@@ -3,6 +3,7 @@ import { ProfileType, BusinessHour, SpecialDay } from "~/core/types";
 import { omit } from "./omit";
 import { range } from "./range";
 import { timeStringToMs } from "./timeStringToMs";
+import { fail } from "./fail";
 
 export const weekDayArray = [
   "SUN",
@@ -55,7 +56,9 @@ export const getMarketOpenness = (
 
     return intervalDays.reduce((list, intervalDay) => {
       const bh = business_hours
-        .filter(({ days }) => days.includes(weekDayArray[intervalDay]))
+        .filter(({ days }) =>
+          days.includes(weekDayArray[intervalDay] ?? fail()),
+        )
         .map(normalizeBH(intervalDay));
 
       return list.concat(bh);
@@ -63,7 +66,7 @@ export const getMarketOpenness = (
   })();
 
   const todayFlips = open_flips.filter((v) => isToday(v.created_at));
-  const flip = todayFlips.at(0);
+  const flip = todayFlips[0];
   const flipInMs =
     (flip && timeStringToMs(lightFormat(flip.created_at, "HH:mm"))) ?? 0;
 
@@ -82,7 +85,7 @@ export const getMarketOpenness = (
       const openInMs = timeStringToMs(open_time);
       const closeInMs = timeStringToMs(close_time);
 
-      const isToday = days.includes(weekDayArray[weekday]);
+      const isToday = days.includes(weekDayArray[weekday] ?? fail());
       const isPast = closeInMs <= nowInMs;
 
       return isToday && !isPast && !isClosedByFlip(openInMs);
@@ -139,7 +142,7 @@ export const getMarketOpenness = (
   const tomorrowBHs = tomorrowSpecialBHs.length
     ? tomorrowSpecialBHs
     : business_hours.filter(({ days }) =>
-        days.includes(weekDayArray[tomorrowWeekday]),
+        days.includes(weekDayArray[tomorrowWeekday] ?? fail()),
       );
   const [tomorrowNextBH] = tomorrowBHs;
 

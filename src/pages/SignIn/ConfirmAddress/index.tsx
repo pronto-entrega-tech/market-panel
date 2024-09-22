@@ -16,7 +16,7 @@ export type Address = {
   address_complement?: string;
 };
 
-const props: [string, string, string?][] = [
+const props: [keyof CreateMarketDto, string, string?][] = [
   ["address_street", "Rua", "half1"],
   ["address_number", "Numero", "half2"],
   ["address_district", "Bairro"],

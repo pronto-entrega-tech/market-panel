@@ -16,7 +16,7 @@ const Config = ({ path, setPath }: ReturnType<typeof useConfigState>) => {
   const routes = [
     ["Perfil", Page.Profile],
     ["Integração", Page.Plugin],
-  ];
+  ] as const;
 
   useEffect(() => {
     configPath ? setPath(pathname) : navigate(path);

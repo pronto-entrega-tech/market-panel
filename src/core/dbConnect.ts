@@ -2,6 +2,7 @@ import { ClientConfig } from "pg";
 import { local } from "~/services/local";
 import crypto from "crypto";
 import { store } from "../services/store";
+import { fail } from "~/functions/fail";
 
 const conOptionsBase: ClientConfig = {
   port: 5432,
@@ -40,7 +41,9 @@ export async function dbCreateUser(
     // choice database
     const dbsRes = await local.dbQuery(conOptions, "selectDBs");
 
-    const dbsNames = dbsRes.map((res) => res.datname);
+    const dbsNames = dbsRes
+      .map((res) => res.datname)
+      .filter((v) => typeof v === "string");
 
     const database = await dialog("Escolha um database", dbsNames);
 
@@ -51,7 +54,9 @@ export async function dbCreateUser(
     };
     const tablesRes = await local.dbQuery(conOptions2, "selectTables");
 
-    const tablesNames = tablesRes.map((res) => res.table_name);
+    const tablesNames = tablesRes
+      .map((res) => res.table_name)
+      .filter((v) => typeof v === "string");
 
     const table = await dialog("Escolha uma table", tablesNames);
 
@@ -60,7 +65,9 @@ export async function dbCreateUser(
       table,
     ]);
 
-    const columnsNames = columnsRes.map((res) => res.column_name);
+    const columnsNames = columnsRes
+      .map((res) => res.column_name)
+      .filter((v) => typeof v === "string");
 
     const column = await dialogMulti("Escolha as columns", columnsNames);
 
@@ -93,7 +100,7 @@ export async function dbRead() {
     /* const test = await local.test();
     alert(test); */
 
-    const dbPass = await local.getPassword("database");
+    const dbPass = (await local.getPassword("database")) ?? fail();
     const dbData = await store.get("dbData");
 
     const conOptionsReader: ClientConfig = {

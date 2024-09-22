@@ -4,7 +4,7 @@ import {
   readConfigRequest,
 } from "secure-electron-store";
 
-const rawStore = window["local"]?.store as
+const rawStore = (window as any).local?.store as
   | undefined
   | {
       send: (config: string, key: string, value?: unknown) => void;
@@ -48,7 +48,7 @@ export const store = rawStore
         localStorage.setItem(key, JSON.stringify(value));
       },
 
-      get<K extends keyof Store>(key: K) {
+      get<K extends keyof Store>(key: K): Store[K] {
         const stringValue = localStorage.getItem(key);
 
         return stringValue && JSON.parse(stringValue);

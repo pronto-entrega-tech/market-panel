@@ -4,7 +4,7 @@ import { OrderType } from "~/core/types";
 export const getStatusName = (order: OrderType) =>
   isOrderLate(order)
     ? "Atrasado"
-    : ({
+    : {
         APPROVAL_PENDING: "Pendente",
         PROCESSING: "Em preparo",
         DELIVERY_PENDING: "Saiu",
@@ -12,12 +12,15 @@ export const getStatusName = (order: OrderType) =>
         COMPLETED: "Concluído",
         CANCELING: "Cancelando",
         CANCELED: "Cancelado",
-      }[order.status] ?? "");
+        PAYMENT_PROCESSING: "",
+        PAYMENT_FAILED: "",
+        PAYMENT_REQUIRE_ACTION: "",
+      }[order.status];
 
 export const getStatusColor = (order: OrderType) =>
   isOrderLate(order)
     ? "red"
-    : ({
+    : {
         APPROVAL_PENDING: "green",
         PROCESSING: "yellow",
         DELIVERY_PENDING: "blue",
@@ -25,7 +28,10 @@ export const getStatusColor = (order: OrderType) =>
         COMPLETED: "grey",
         CANCELING: "grey",
         CANCELED: "grey",
-      }[order.status] ?? "");
+        PAYMENT_PROCESSING: "",
+        PAYMENT_FAILED: "",
+        PAYMENT_REQUIRE_ACTION: "",
+      }[order.status];
 
 export const isOrderLate = (order: OrderType) =>
   isPast(new Date(order.delivery_max_time));

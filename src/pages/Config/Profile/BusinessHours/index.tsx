@@ -99,15 +99,17 @@ const EditBusinessHours = ({
           onChange={(_, values) => setBHsDays(i, values)}
         >
           {weekDays.map(([day, name]) => (
-            <ToggleButton key={day} value={day}>
+            <ToggleButton key={day} value={day != null}>
               {name}
             </ToggleButton>
           ))}
         </ToggleButtonGroup>
-        {[
-          [open_time, "open_time", "Abre"],
-          [close_time, "close_time", "Fecha"],
-        ].map(([time, prop, name]) => (
+        {(
+          [
+            [open_time, "open_time", "Abre"],
+            [close_time, "close_time", "Fecha"],
+          ] as const
+        ).map(([time, prop, name]) => (
           <TimeField
             key={prop}
             label={name}

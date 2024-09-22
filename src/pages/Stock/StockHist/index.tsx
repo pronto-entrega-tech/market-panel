@@ -76,7 +76,7 @@ const StockHistBody = ({
         <SearchBar
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onKeyPress={(e) => e.key === "Enter" && fetchQuery()}
+          onKeyDown={(e) => e.key === "Enter" && fetchQuery()}
           placeholder="Busque por código ou descrição"
         />
       </HeaderLine>
@@ -87,8 +87,8 @@ const StockHistBody = ({
         itemSize={80}
       >
         {({ index, style }) => (
-          <div key={activities[index].item_id} style={style}>
-            <StockHistItem activity={activities[index]} />
+          <div key={activities[index]!.item_id} style={style}>
+            <StockHistItem activity={activities[index]!} />
           </div>
         )}
       </FixedSizeList>
