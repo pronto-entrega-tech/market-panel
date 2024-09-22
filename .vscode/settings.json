@@ -3,14 +3,5 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "workbench.iconTheme": "material-icon-theme",
-  "material-icon-theme.activeIconPack": "react",
-  "cSpell.words": [
-    "Authed",
-    "flexbox",
-    "immer",
-    "keytar",
-    "Notif",
-    "Roboto",
-    "Wifi"
-  ]
+  "material-icon-theme.activeIconPack": "react"
 }
