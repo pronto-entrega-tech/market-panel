@@ -70,6 +70,6 @@ img {
   -webkit-user-drag: none;
 }
 
-#target {
+#root {
   height: -webkit-fill-available;
 }

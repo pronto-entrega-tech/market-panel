@@ -1,29 +1,27 @@
-import Events from "events";
+export const createEvents = <T = void>() => {
+  const set = new Set<(value: T) => void>();
 
-type Event = {
-  unauthorized: undefined;
-  accessTokenUpdated: string;
+  return {
+    on(update: (value: T) => void) {
+      set.add(update);
+
+      return () => {
+        set.delete(update);
+      };
+    },
+    emit(value: T) {
+      set.forEach((update) => {
+        try {
+          update(value);
+        } catch (error) {
+          console.error(error);
+        }
+      });
+    },
+  };
 };
-type RemoveListener = () => void;
-
-const _events = new Events();
 
 export const events = {
-  emit<T extends keyof Event>(
-    ...[event, data]: Event[T] extends undefined
-      ? [event: T]
-      : [event: T, data: Event[T]]
-  ) {
-    _events.emit(event, data);
-  },
-
-  on<T extends keyof Event>(
-    event: T,
-    listener: (data: Event[T]) => void,
-  ): RemoveListener {
-    _events.on(event, listener);
-    return () => {
-      _events.off(event, listener);
-    };
-  },
+  unauthorized: createEvents(),
+  accessTokenUpdated: createEvents<string>(),
 };

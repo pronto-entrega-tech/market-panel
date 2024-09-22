@@ -60,9 +60,7 @@ const theme = createTheme({
   },
 });
 
-const container = document.getElementById("target") ?? fail();
-const root = createRoot(container);
-root.render(
+createRoot(document.getElementById("root") ?? fail()).render(
   <Suspense fallback={<Loading />}>
     <AppContexts>
       <HashRouter>

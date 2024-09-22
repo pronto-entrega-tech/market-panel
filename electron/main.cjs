@@ -6,16 +6,16 @@ const {
   ipcMain,
   Menu,
 } = require("electron");
-const Protocol = require("./protocol");
-const MenuBuilder = require("./menu");
-const { setupApi } = require("./api");
+const Protocol = require("./protocol.cjs");
+const MenuBuilder = require("./menu.cjs");
+const { setupApi } = require("./api.cjs");
 const Store = require("secure-electron-store").default;
 const ContextMenu = require("secure-electron-context-menu").default;
 const path = require("path");
 const fs = require("fs");
 const { autoUpdater } = require("electron-updater");
 const isDev = process.env.NODE_ENV === "development";
-const port = 40992; // Hardcoded; needs to match webpack.development.js
+const port = 5173; // Hardcoded; needs to match vite
 const selfHost = `http://localhost:${port}`;
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -88,7 +88,7 @@ async function createWindow() {
       additionalArguments: [
         `--storePath=${store.sanitizePath(app.getPath("userData"))}`,
       ],
-      preload: path.join(__dirname, "preload.js"),
+      preload: path.join(__dirname, "preload.cjs"),
       /* eng-disable PRELOAD_JS_CHECK */
       disableBlinkFeatures: "Auxclick",
     },

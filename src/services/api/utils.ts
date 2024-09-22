@@ -29,7 +29,7 @@ const format = (v: any) => {
 
 apiCall.interceptors.response.use(undefined, (err: AxiosError) => {
   if (err.response?.status === 401) {
-    events.emit("unauthorized");
+    events.unauthorized.emit();
   }
 
   const errMsg = [

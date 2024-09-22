@@ -8,7 +8,7 @@ import {
   HelpCircle as HelpIcon,
 } from "mdi-material-ui";
 import { Page } from "~/constants/pages";
-import LogoSvg from "~/assets/logo-icon.svg";
+import { Logo } from "~/components/Logo";
 import { componentWidth } from "~/constants/componentWidths";
 import { ReactNode } from "react";
 import { ZIndex } from "~/constants/zIndex";
@@ -58,10 +58,8 @@ const Button = styled(mui.Button).attrs({
   }
 `;
 
-const LogoIcon = styled(mui.SvgIcon).attrs({
-  component: LogoSvg,
-  viewBox: "0 0 280 280",
-})`
+const LogoIcon = styled(Logo)`
+  color: white;
   height: 80px;
   width: 80px;
   margin-bottom: 14px;

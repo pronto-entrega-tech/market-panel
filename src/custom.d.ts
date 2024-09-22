@@ -1,7 +1,4 @@
-declare module "*.svg" {
-  const content: React.FC<React.SVGProps<SVGSVGElement>>;
-  export default content;
-}
+/// <reference types="vite/client" />
 
 declare module "secure-electron-store" {
   export const writeConfigRequest: string;
@@ -9,7 +6,7 @@ declare module "secure-electron-store" {
   export const readConfigResponse: string;
 }
 
-// Otimazation
+// Optimization
 declare type Omit<T, K extends keyof any> = {
   [P in Exclude<keyof T, K>]: T[P];
 };

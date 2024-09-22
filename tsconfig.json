@@ -1,35 +1,29 @@
 {
   "compilerOptions": {
-    "outDir": "build",
-    "target": "ESNext",
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
-    "lib": ["ESNext", "dom"],
-    "jsx": "react-jsx",
-    "noEmit": true,
-    "sourceMap": true,
-    "strict": true,
-    "noImplicitAny": false,
-    "strictNullChecks": true,
-    "moduleResolution": "node",
-    "forceConsistentCasingInFileNames": true,
-    "allowJs": false,
-    "noImplicitThis": true,
-    "importHelpers": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
     "skipLibCheck": true,
-    "rootDir": "src",
-    "baseUrl": "src",
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
     "paths": {
-      "~/*": ["*"]
-    }
+      "~/*": ["./src/*"]
+    },
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true
   },
   "include": ["src"],
-  "exclude": ["node_modules"],
-  "ts-node": {
-    "swc": true
-  }
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

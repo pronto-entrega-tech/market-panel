@@ -37,8 +37,8 @@ const useProviderValues = () => {
     window.addEventListener("online", () => setConnectionErr(false));
     window.addEventListener("offline", () => setConnectionErr(true));
 
-    const clear1 = events.on("unauthorized", () => setAccessToken(null));
-    const clear2 = events.on("accessTokenUpdated", setStatefulAccessToken);
+    const clear1 = events.unauthorized.on(() => setAccessToken(null));
+    const clear2 = events.accessTokenUpdated.on(setStatefulAccessToken);
 
     return () => {
       clear1();
