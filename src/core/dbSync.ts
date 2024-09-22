@@ -1,12 +1,15 @@
-import { dbRead } from './dbConnect';
+import { dbRead } from "./dbConnect";
 
 const dbSync = () =>
-  setInterval(async () => {
-    console.log('query db');
+  setInterval(
+    async () => {
+      console.log("query db");
 
-    const query = await dbRead();
+      const query = await dbRead();
 
-    console.log(query);
-  }, 1 * 60 * 1000);
+      console.log(query);
+    },
+    1 * 60 * 1000,
+  );
 
 export default dbSync;

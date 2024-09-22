@@ -1,11 +1,11 @@
-const Application = require('spectron').Application;
-const assert = require('assert');
-const electronPath = require('electron');
-const path = require('path');
+const Application = require("spectron").Application;
+const assert = require("assert");
+const electronPath = require("electron");
+const path = require("path");
 
 // Sample code taken from:
 // https://github.com/electron-userland/spectron
-describe('Application launch', function () {
+describe("Application launch", function () {
   this.timeout(10000);
 
   beforeEach(function () {
@@ -28,7 +28,7 @@ describe('Application launch', function () {
 
       // The following line tells spectron to look and use the main.js file
       // and the package.json located 1 level above.
-      args: [path.join(__dirname, '..')],
+      args: [path.join(__dirname, "..")],
     });
     return this.app.start();
   });
@@ -39,7 +39,7 @@ describe('Application launch', function () {
     }
   });
 
-  it('shows an initial window', function () {
+  it("shows an initial window", function () {
     return this.app.client.getWindowCount().then(function (count) {
       assert.strictEqual(count, 1);
       // Please note that getWindowCount() will return 2 if `dev tools` are opened.

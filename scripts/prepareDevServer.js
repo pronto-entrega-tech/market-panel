@@ -1,7 +1,7 @@
-const fs = require('fs');
-const { exec } = require('child_process');
-const logFilePath = './scripts/webpack-dev-server.log';
-const errorLogFilePath = './scripts/webpack-dev-server-error.log';
+const fs = require("fs");
+const { exec } = require("child_process");
+const logFilePath = "./scripts/webpack-dev-server.log";
+const errorLogFilePath = "./scripts/webpack-dev-server-error.log";
 
 console.log(
   `Preparing webpack development server. (Logging webpack output to '${logFilePath}')`,
@@ -22,4 +22,4 @@ try {
 }
 
 // Start the webpack development server
-exec('npm run dev');
+exec("npm run dev");

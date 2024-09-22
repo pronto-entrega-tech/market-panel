@@ -1,7 +1,7 @@
-const fs = require('fs');
-const { exec } = require('child_process');
-const logFilePath = './scripts/webpack-dev-server.log';
-const errorLogFilePath = './scripts/webpack-dev-server-error.log';
+const fs = require("fs");
+const { exec } = require("child_process");
+const logFilePath = "./scripts/webpack-dev-server.log";
+const errorLogFilePath = "./scripts/webpack-dev-server-error.log";
 const interval = 100;
 const showHint = 600 * 3; // show hint after 3 minutes (60 sec * 3)
 let hintCounter = 1;
@@ -10,32 +10,32 @@ let hintCounter = 1;
 const intervalId = setInterval(function () {
   try {
     if (fs.existsSync(logFilePath)) {
-      const log = fs.readFileSync(logFilePath, 'utf8');
+      const log = fs.readFileSync(logFilePath, "utf8");
 
       // "compiled successfully" is the string we need to find
       // to know that webpack is done bundling everything and we
       // can load our Electron app with no issues. We split up the
       // validation because the output contains non-standard characters.
-      const compiled = log.indexOf('compiled');
-      if (compiled >= 0 && log.indexOf('successfully', compiled) >= 0) {
+      const compiled = log.indexOf("compiled");
+      if (compiled >= 0 && log.indexOf("successfully", compiled) >= 0) {
         console.log(
-          'Webpack development server is ready, launching Electron app.',
+          "Webpack development server is ready, launching Electron app.",
         );
         clearInterval(intervalId);
 
         // Start our electron app
         const electronProcess = exec(
-          'cross-env NODE_ENV=development electron .',
+          "cross-env NODE_ENV=development electron .",
         );
-        electronProcess.stdout.on('data', function (data) {
+        electronProcess.stdout.on("data", function (data) {
           process.stdout.write(data);
         });
-        electronProcess.stderr.on('data', function (data) {
+        electronProcess.stderr.on("data", function (data) {
           process.stdout.write(data);
         });
-      } else if (log.indexOf('Module build failed') >= 0) {
+      } else if (log.indexOf("Module build failed") >= 0) {
         if (fs.existsSync(errorLogFilePath)) {
-          const errorLog = fs.readFileSync(errorLogFilePath, 'utf8');
+          const errorLog = fs.readFileSync(errorLogFilePath, "utf8");
 
           console.log(errorLog);
           console.log(
@@ -45,7 +45,7 @@ const intervalId = setInterval(function () {
 
           return process.exit(1);
         } else {
-          console.log('Webpack failed to compile, but the error is unknown.');
+          console.log("Webpack failed to compile, but the error is unknown.");
           clearInterval(intervalId);
 
           return process.exit(1);
@@ -67,7 +67,7 @@ const intervalId = setInterval(function () {
     }
   } catch (error) {
     // Exit with an error code
-    console.error('Webpack or electron fatal error ' + error);
+    console.error("Webpack or electron fatal error " + error);
     clearInterval(intervalId);
 
     return process.exit(1);

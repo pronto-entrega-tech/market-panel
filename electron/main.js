@@ -5,16 +5,16 @@ const {
   session,
   ipcMain,
   Menu,
-} = require('electron');
-const Protocol = require('./protocol');
-const MenuBuilder = require('./menu');
-const { setupApi } = require('./api');
-const Store = require('secure-electron-store').default;
-const ContextMenu = require('secure-electron-context-menu').default;
-const path = require('path');
-const fs = require('fs');
-const { autoUpdater } = require('electron-updater');
-const isDev = process.env.NODE_ENV === 'development';
+} = require("electron");
+const Protocol = require("./protocol");
+const MenuBuilder = require("./menu");
+const { setupApi } = require("./api");
+const Store = require("secure-electron-store").default;
+const ContextMenu = require("secure-electron-context-menu").default;
+const path = require("path");
+const fs = require("fs");
+const { autoUpdater } = require("electron-updater");
+const isDev = process.env.NODE_ENV === "development";
 const port = 40992; // Hardcoded; needs to match webpack.development.js
 const selfHost = `http://localhost:${port}`;
 
@@ -37,7 +37,7 @@ async function createWindow() {
   // Store options should be in main and preload
   // except path/unprotectedPath options, main only
   const store = new Store({
-    path: app.getPath('userData'),
+    path: app.getPath("userData"),
   });
 
   // Use saved config values for configuring the
@@ -49,11 +49,11 @@ async function createWindow() {
   let windowState;
   try {
     const buffer = fs.readFileSync(
-      path.join(app.getPath('userData'), 'windowState.json'),
+      path.join(app.getPath("userData"), "windowState.json"),
     );
     windowState = JSON.parse(buffer.toString());
   } catch (err) {
-    console.error('!!!  windowState loading error');
+    console.error("!!!  windowState loading error");
     console.error(err);
   }
 
@@ -81,16 +81,16 @@ async function createWindow() {
     height: windowState.bounds.height,
     minWidth: 780,
     minHeight: 420,
-    title: 'ProntoEntrega',
+    title: "ProntoEntrega",
     show: false,
     webPreferences: {
       ...securePref,
       additionalArguments: [
-        `--storePath=${store.sanitizePath(app.getPath('userData'))}`,
+        `--storePath=${store.sanitizePath(app.getPath("userData"))}`,
       ],
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, "preload.js"),
       /* eng-disable PRELOAD_JS_CHECK */
-      disableBlinkFeatures: 'Auxclick',
+      disableBlinkFeatures: "Auxclick",
     },
   });
 
@@ -117,7 +117,7 @@ async function createWindow() {
   // callback is optional and allows you to use store in main process
   function callback(success, initialStore) {
     console.log(
-      `${!success ? 'Un-s' : 'S'}uccessfully retrieved store in main process.`,
+      `${!success ? "Un-s" : "S"}uccessfully retrieved store in main process.`,
     );
     console.log(initialStore); // {"key1": "value1", ... }
   }
@@ -128,14 +128,14 @@ async function createWindow() {
   ContextMenu.mainBindings(ipcMain, win, Menu, isDev, {
     loudAlertTemplate: [
       {
-        id: 'loudAlert',
-        label: 'AN ALERT!',
+        id: "loudAlert",
+        label: "AN ALERT!",
       },
     ],
     softAlertTemplate: [
       {
-        id: 'softAlert',
-        label: 'Soft alert',
+        id: "softAlert",
+        label: "Soft alert",
       },
     ],
   });
@@ -148,12 +148,12 @@ async function createWindow() {
     }
 
     fs.writeFileSync(
-      path.join(app.getPath('userData'), 'windowState.json'),
+      path.join(app.getPath("userData"), "windowState.json"),
       JSON.stringify(windowState),
     );
   }
 
-  ['resize', 'move', 'close'].forEach((e) => {
+  ["resize", "move", "close"].forEach((e) => {
     win.on(e, storeWindowState);
   });
 
@@ -167,12 +167,12 @@ async function createWindow() {
   }
 
   // Only show the splashScreen when ready
-  splashScreen.once('ready-to-show', () => {
+  splashScreen.once("ready-to-show", () => {
     splashScreen.show();
   });
 
   // Only show the window when ready
-  win.once('ready-to-show', () => {
+  win.once("ready-to-show", () => {
     splashScreen.destroy();
     win.show();
     win.focus();
@@ -187,21 +187,21 @@ async function createWindow() {
     const {
       default: installExtension,
       REACT_DEVELOPER_TOOLS,
-    } = require('electron-devtools-installer');
+    } = require("electron-devtools-installer");
 
-    win.webContents.once('dom-ready', async () => {
+    win.webContents.once("dom-ready", async () => {
       await installExtension(REACT_DEVELOPER_TOOLS)
         .then((name) => console.log(`Added Extension:  ${name}`))
-        .catch((err) => console.log('An error occurred: ', err))
+        .catch((err) => console.log("An error occurred: ", err))
         .finally(() => {
-          require('electron-debug')(); // https://github.com/sindresorhus/electron-debug
+          require("electron-debug")(); // https://github.com/sindresorhus/electron-debug
           win.webContents.openDevTools();
         });
     });
   }
 
   // Emitted when the window is closed.
-  win.on('closed', () => {
+  win.on("closed", () => {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
@@ -210,7 +210,7 @@ async function createWindow() {
 
   // https://electronjs.org/doc/latests/tutorial/security#4-handle-session-permission-requests-from-remote-content
   const ses = session;
-  const partition = 'default';
+  const partition = "default";
   ses
     .fromPartition(
       partition,
@@ -260,20 +260,20 @@ protocol.registerSchemesAsPrivileged([
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on("ready", createWindow);
 
 // Quit when all windows are closed.
-app.on('window-all-closed', () => {
+app.on("window-all-closed", () => {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
+  if (process.platform !== "darwin") {
     app.quit();
   } else {
     ContextMenu.clearMainBindings(ipcMain);
   }
 });
 
-app.on('activate', () => {
+app.on("activate", () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (win === null) {
@@ -282,8 +282,8 @@ app.on('activate', () => {
 });
 
 // https://electronjs.org/docs/latest/tutorial/security#13-disable-or-limit-navigation
-app.on('web-contents-created', (event, contents) => {
-  contents.on('will-navigate', (contentsEvent, navigationUrl) => {
+app.on("web-contents-created", (event, contents) => {
+  contents.on("will-navigate", (contentsEvent, navigationUrl) => {
     /* eng-disable LIMIT_NAVIGATION_JS_CHECK  */
     const parsedUrl = new URL(navigationUrl);
     const validOrigins = [selfHost];
@@ -298,7 +298,7 @@ app.on('web-contents-created', (event, contents) => {
     }
   });
 
-  contents.on('will-redirect', (contentsEvent, navigationUrl) => {
+  contents.on("will-redirect", (contentsEvent, navigationUrl) => {
     const parsedUrl = new URL(navigationUrl);
     const validOrigins = [];
 
@@ -314,7 +314,7 @@ app.on('web-contents-created', (event, contents) => {
 
   // https://electronjs.org/docs/latest/tutorial/security#12-verify-webview-options-before-creation
   contents.on(
-    'will-attach-webview',
+    "will-attach-webview",
     (contentsEvent, webPreferences, params) => {
       // Strip away preload scripts if unused or verify their location is legitimate
       delete webPreferences.preload;
@@ -342,12 +342,12 @@ app.on('web-contents-created', (event, contents) => {
       );
 
       return {
-        action: 'deny',
+        action: "deny",
       };
     }
 
     return {
-      action: 'allow',
+      action: "allow",
     };
   });
 });

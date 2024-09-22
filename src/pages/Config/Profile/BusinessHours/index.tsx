@@ -1,14 +1,14 @@
-import { ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { useState, useEffect } from 'react';
-import GoBackHeader from '~/components/GoBackHeader';
-import Loading from '~/components/Loading';
-import { errMsg } from '~/constants/errorMessages';
-import useMyContext from '~/core/context';
-import { BusinessHour } from '~/core/types';
-import { useGoBack } from '~/hooks/useGoBack';
-import { useLoading } from '~/hooks/useLoading';
-import { api } from '~/services/api';
-import { useProfileState } from '..';
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { useState, useEffect } from "react";
+import GoBackHeader from "~/components/GoBackHeader";
+import Loading from "~/components/Loading";
+import { errMsg } from "~/constants/errorMessages";
+import useMyContext from "~/core/context";
+import { BusinessHour } from "~/core/types";
+import { useGoBack } from "~/hooks/useGoBack";
+import { useLoading } from "~/hooks/useLoading";
+import { api } from "~/services/api";
+import { useProfileState } from "..";
 import {
   Container,
   HoursContainer,
@@ -19,16 +19,16 @@ import {
   Button,
   CreateButton,
   ErrorText,
-} from './styles';
+} from "./styles";
 
 const weekDays = [
-  ['SUN', 'DOM'],
-  ['MON', 'SEG'],
-  ['TUE', 'TER'],
-  ['WED', 'QUA'],
-  ['THU', 'QUI'],
-  ['FRI', 'SEX'],
-  ['SAT', 'SAB'],
+  ["SUN", "DOM"],
+  ["MON", "SEG"],
+  ["TUE", "TER"],
+  ["WED", "QUA"],
+  ["THU", "QUI"],
+  ["FRI", "SEX"],
+  ["SAT", "SAB"],
 ];
 
 export const useBusinessHours = ({
@@ -60,12 +60,12 @@ const EditBusinessHours = ({
   if (isLoading) return <Loading />;
 
   const addHours = () => {
-    if (businessHours.length >= 50) return alert('Máximo de 50 horários');
+    if (businessHours.length >= 50) return alert("Máximo de 50 horários");
 
     const defaultBH: BusinessHour = {
-      days: businessHours.length ? [] : ['MON', 'TUE', 'WED', 'THU', 'FRI'],
-      open_time: businessHours.at(-1)?.open_time ?? '07:00',
-      close_time: businessHours.at(-1)?.close_time ?? '22:00',
+      days: businessHours.length ? [] : ["MON", "TUE", "WED", "THU", "FRI"],
+      open_time: businessHours.at(-1)?.open_time ?? "07:00",
+      close_time: businessHours.at(-1)?.close_time ?? "22:00",
     };
 
     setBusinessHours(businessHours.concat(defaultBH));
@@ -79,7 +79,7 @@ const EditBusinessHours = ({
 
   const setBHsTimes = (
     index: number,
-    times: Partial<Pick<BusinessHour, 'open_time' | 'close_time'>>,
+    times: Partial<Pick<BusinessHour, "open_time" | "close_time">>,
   ) => {
     setBusinessHours(
       businessHours.map((v, i) => (i === index ? { ...v, ...times } : v)),
@@ -95,8 +95,9 @@ const EditBusinessHours = ({
       <HoursItemContainer key={i}>
         <ToggleButtonGroup
           value={days}
-          size='small'
-          onChange={(_, values) => setBHsDays(i, values)}>
+          size="small"
+          onChange={(_, values) => setBHsDays(i, values)}
+        >
           {weekDays.map(([day, name]) => (
             <ToggleButton key={day} value={day}>
               {name}
@@ -104,19 +105,19 @@ const EditBusinessHours = ({
           ))}
         </ToggleButtonGroup>
         {[
-          [open_time, 'open_time', 'Abre'],
-          [close_time, 'close_time', 'Fecha'],
+          [open_time, "open_time", "Abre"],
+          [close_time, "close_time", "Fecha"],
         ].map(([time, prop, name]) => (
           <TimeField
             key={prop}
             label={name}
-            type='time'
+            type="time"
             value={time}
             onChange={(e) => setBHsTimes(i, { [prop]: e.target.value })}
             inputProps={{ step: 5 * 60 }}
           />
         ))}
-        <RemoveHoursButton onClick={() => removeHours(i)} variant='text'>
+        <RemoveHoursButton onClick={() => removeHours(i)} variant="text">
           Remover
         </RemoveHoursButton>
       </HoursItemContainer>
@@ -141,14 +142,15 @@ const EditBusinessHours = ({
           <HoursContainer
             style={{
               height: `${64.5 * businessHoursComponents.length || 24}px`,
-            }}>
+            }}
+          >
             {businessHoursComponents.length ? (
               businessHoursComponents
             ) : (
               <ErrorText>Nenhum horário ainda</ErrorText>
             )}
           </HoursContainer>
-          <Button onClick={addHours} variant='outlined'>
+          <Button onClick={addHours} variant="outlined">
             Adicionar horário
           </Button>
         </Scroll>

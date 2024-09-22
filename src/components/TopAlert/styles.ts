@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import * as mui from '@mui/material';
-import { ZIndex } from '~/constants/zIndex';
+import styled from "styled-components";
+import * as mui from "@mui/material";
+import { ZIndex } from "~/constants/zIndex";
 
 export const Alert = styled(mui.Alert)`
   position: absolute;

@@ -1,4 +1,4 @@
-const { Menu } = require('electron');
+const { Menu } = require("electron");
 
 const MenuBuilder = function () {
   // https://electronjs.org/docs/api/menu#main-process
@@ -16,101 +16,101 @@ const MenuBuilder = function () {
       }, */
       // { role: "editMenu" }
       {
-        label: 'Edit',
+        label: "Edit",
         submenu: [
           {
-            role: 'undo',
-            label: 'Undo',
+            role: "undo",
+            label: "Undo",
           },
           {
-            role: 'redo',
-            label: 'Redo',
+            role: "redo",
+            label: "Redo",
           },
           {
-            type: 'separator',
+            type: "separator",
           },
           {
-            role: 'cut',
-            label: 'Cut',
+            role: "cut",
+            label: "Cut",
           },
           {
-            role: 'copy',
-            label: 'Copy',
+            role: "copy",
+            label: "Copy",
           },
           {
-            role: 'paste',
-            label: 'Paste',
+            role: "paste",
+            label: "Paste",
           },
 
           {
-            role: 'delete',
-            label: 'Delete',
+            role: "delete",
+            label: "Delete",
           },
           {
-            type: 'separator',
+            type: "separator",
           },
           {
-            role: 'selectAll',
-            label: 'Select All',
+            role: "selectAll",
+            label: "Select All",
           },
         ],
       },
       // { role: "viewMenu" }
       {
-        label: 'View',
+        label: "View",
         submenu: [
           {
-            role: 'reload',
-            label: 'Reload',
+            role: "reload",
+            label: "Reload",
           },
           {
-            role: 'forcereload',
-            label: 'Force Reload',
+            role: "forcereload",
+            label: "Force Reload",
           },
           {
-            role: 'toggledevtools',
-            label: 'Toggle Developer Tools',
+            role: "toggledevtools",
+            label: "Toggle Developer Tools",
           },
           {
-            type: 'separator',
+            type: "separator",
           },
           {
-            role: 'resetzoom',
-            label: 'Reset Zoom',
+            role: "resetzoom",
+            label: "Reset Zoom",
           },
           {
-            role: 'zoomin',
-            label: 'Zoom In',
+            role: "zoomin",
+            label: "Zoom In",
           },
           {
-            role: 'zoomout',
-            label: 'Zoom Out',
+            role: "zoomout",
+            label: "Zoom Out",
           },
           {
-            type: 'separator',
+            type: "separator",
           },
           {
-            role: 'togglefullscreen',
-            label: 'Toggle Fullscreen',
+            role: "togglefullscreen",
+            label: "Toggle Fullscreen",
           },
         ],
       },
       // { role: "windowMenu" }
       {
-        label: 'Window',
+        label: "Window",
         submenu: [
           {
-            role: 'minimize',
-            label: 'Minimize',
+            role: "minimize",
+            label: "Minimize",
           },
           {
-            role: 'zoom',
-            label: 'Zoom',
+            role: "zoom",
+            label: "Zoom",
           },
 
           {
-            role: 'close',
-            label: 'Close',
+            role: "close",
+            label: "Close",
           },
         ],
       },

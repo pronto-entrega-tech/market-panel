@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import * as mui from '@mui/material';
-import * as icons from 'mdi-material-ui';
-import LoadingButton from '~/components/LoadingButton';
+import styled from "styled-components";
+import * as mui from "@mui/material";
+import * as icons from "mdi-material-ui";
+import LoadingButton from "~/components/LoadingButton";
 
 export const Container = styled.div`
   display: flex;
@@ -31,7 +31,7 @@ export const InfoLine = styled.div`
 `;
 
 export const ChatButton = styled(mui.Button).attrs({
-  variant: 'text',
+  variant: "text",
 })`
   && {
     text-transform: none;
@@ -51,7 +51,7 @@ export const Status = styled.div`
   grid-column: 1 / span 3;
   grid-row: 1;
   justify-self: flex-end;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-weight: 500;
   color: white;
   padding: 4px 8px 4px 8px;
@@ -80,7 +80,7 @@ export const Time = styled.div`
 `;
 
 export const AddressIcon = styled(icons.MapMarker).attrs({
-  color: 'primary',
+  color: "primary",
 })`
   grid-column: 1;
   grid-row: 3;

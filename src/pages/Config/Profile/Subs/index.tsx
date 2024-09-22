@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import QRCode from 'react-qr-code';
-import Errors from '~/components/Errors';
-import Loading from '~/components/Loading';
-import GoBackHeader from '~/components/GoBackHeader';
-import { api } from '~/services/api';
-import { CreateSubDto, MarketSub, SubPermission } from '~/core/types';
+import { useState, useEffect } from "react";
+import QRCode from "react-qr-code";
+import Errors from "~/components/Errors";
+import Loading from "~/components/Loading";
+import GoBackHeader from "~/components/GoBackHeader";
+import { api } from "~/services/api";
+import { CreateSubDto, MarketSub, SubPermission } from "~/core/types";
 import {
   CardsContainer,
   Card,
@@ -19,25 +19,25 @@ import {
   CreateButton,
   Stack,
   QRCodeContainer,
-} from './styles';
-import { useLoading } from '~/hooks/useLoading';
+} from "./styles";
+import { useLoading } from "~/hooks/useLoading";
 import {
   Dialog,
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from '@mui/material';
-import { Pencil as EditIcon, Delete as DeleteIcon } from 'mdi-material-ui';
-import { ModalState, useModalState } from '~/hooks/useModalState';
-import { errMsg } from '~/constants/errorMessages';
-import useMyContext from '~/core/context';
-import { lightFormat } from 'date-fns';
-import { second } from '~/constants/time';
-import { getTokenExp } from '~/functions/tokenExp';
+} from "@mui/material";
+import { Pencil as EditIcon, Delete as DeleteIcon } from "mdi-material-ui";
+import { ModalState, useModalState } from "~/hooks/useModalState";
+import { errMsg } from "~/constants/errorMessages";
+import useMyContext from "~/core/context";
+import { lightFormat } from "date-fns";
+import { second } from "~/constants/time";
+import { getTokenExp } from "~/functions/tokenExp";
 
 const permissionsMap: { [x in SubPermission]: string } = {
-  DELIVERY: 'Entrega',
-  STOCK: 'Estoque',
+  DELIVERY: "Entrega",
+  STOCK: "Estoque",
 };
 
 const Subs = () => {
@@ -54,7 +54,7 @@ const Subs = () => {
     api.subs.findMany().then(setSubs).catch(setError);
   }, []);
 
-  if (hasError) return <Errors type='server' />;
+  if (hasError) return <Errors type="server" />;
   if (!subs || isLoading) return <Loading />;
 
   const createSub = withLoading(async (dto: CreateSubDto) => {
@@ -90,7 +90,7 @@ const Subs = () => {
       }
     });
 
-    alert(`Deletar ${sub.name}?`, '', {
+    alert(`Deletar ${sub.name}?`, "", {
       onConfirm: _delete,
     });
   };
@@ -107,13 +107,13 @@ const Subs = () => {
                 <Title>
                   {name}
                   <Subtitle>
-                    {' - Criado em '}
+                    {" - Criado em "}
                     {lightFormat(created_at, "dd/MM/yyyy 'ás' HH:mm")}
                   </Subtitle>
                 </Title>
                 <Body>
-                  Permissões:{' '}
-                  {permissions.map((v) => permissionsMap[v]).join(', ')}
+                  Permissões:{" "}
+                  {permissions.map((v) => permissionsMap[v]).join(", ")}
                 </Body>
               </CardActionArea>
               <CardButtons>
@@ -140,7 +140,7 @@ const CreateSubDialog = (p: {
   state: ModalState;
   onCreate: (dto: CreateSubDto) => void;
 }) => {
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [permissions, setPermissions] = useState<SubPermission[]>([]);
 
   const canCreate = name && permissions.length;
@@ -165,8 +165,9 @@ const CreateSubDialog = (p: {
     return (
       <SelectButton
         key={permission}
-        className={isSelected ? 'selected' : 'unselected'}
-        onClick={onSelect}>
+        className={isSelected ? "selected" : "unselected"}
+        onClick={onSelect}
+      >
         {title}
       </SelectButton>
     );
@@ -177,7 +178,7 @@ const CreateSubDialog = (p: {
       <DialogTitle>Criar funcionário</DialogTitle>
       <DialogContent>
         <Input
-          label='Nome'
+          label="Nome"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -233,8 +234,9 @@ const UpdateSubDialog = (p: {
     return (
       <SelectButton
         key={permission}
-        className={isSelected ? 'selected' : 'unselected'}
-        onClick={onSelect}>
+        className={isSelected ? "selected" : "unselected"}
+        onClick={onSelect}
+      >
         {title}
       </SelectButton>
     );
@@ -245,7 +247,7 @@ const UpdateSubDialog = (p: {
       <DialogTitle>Atualizar funcionário</DialogTitle>
       <DialogContent>
         <Input
-          label='Nome'
+          label="Nome"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -297,7 +299,7 @@ const ConnectSubDialog = (p: { state: ModalState<MarketSub> }) => {
           {connectToken ? (
             <QRCode value={connectToken} />
           ) : hasError ? (
-            <Errors type='server' />
+            <Errors type="server" />
           ) : (
             <Loading />
           )}

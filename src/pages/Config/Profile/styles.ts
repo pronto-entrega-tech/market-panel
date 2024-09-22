@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import * as mui from '@mui/material';
-import * as icons from 'mdi-material-ui';
+import styled from "styled-components";
+import * as mui from "@mui/material";
+import * as icons from "mdi-material-ui";
 
 export const Header = styled.div`
   display: flex;
@@ -36,7 +36,7 @@ export const CartIcon = styled(icons.Cart)`
 `;
 
 export const ChangePictureButton = styled(mui.Fab).attrs({
-  size: 'medium',
+  size: "medium",
 })`
   position: absolute;
   margin-left: 64px;
@@ -57,7 +57,7 @@ export const OpenLabel = styled.div`
 `;
 
 export const Button = styled(mui.Button).attrs({
-  variant: 'text',
+  variant: "text",
 })`
   width: 500px;
   align-self: center;

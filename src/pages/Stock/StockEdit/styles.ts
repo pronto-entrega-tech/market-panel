@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import * as mui from '@mui/material';
+import styled from "styled-components";
+import * as mui from "@mui/material";
 
 export const Container = styled.div`
   height: -webkit-fill-available;

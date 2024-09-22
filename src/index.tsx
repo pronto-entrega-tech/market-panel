@@ -1,17 +1,17 @@
-import './assets/global.css';
-import { Suspense } from 'react';
-import { createRoot } from 'react-dom/client';
-import App from '~/core/App';
-import { AppContexts } from '~/core/AppContexts';
-import Loading from './components/Loading';
-import { HashRouter } from 'react-router-dom';
-import { ThemeProvider, createTheme } from '@mui/material';
-import { fail } from './functions/fail';
-import TopAlert from './components/TopAlert';
-import Notifications from './components/Notification';
-import ModalAlert from './components/MyAlert';
-import { ZIndex } from '~/constants/zIndex';
-import { enableMapSet } from 'immer';
+import "./assets/global.css";
+import { Suspense } from "react";
+import { createRoot } from "react-dom/client";
+import App from "~/core/App";
+import { AppContexts } from "~/core/AppContexts";
+import Loading from "./components/Loading";
+import { HashRouter } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material";
+import { fail } from "./functions/fail";
+import TopAlert from "./components/TopAlert";
+import Notifications from "./components/Notification";
+import ModalAlert from "./components/MyAlert";
+import { ZIndex } from "~/constants/zIndex";
+import { enableMapSet } from "immer";
 
 enableMapSet();
 
@@ -32,25 +32,25 @@ Map.prototype.remove = function (key) {
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#2196F3',
-      contrastText: '#FFF',
+      main: "#2196F3",
+      contrastText: "#FFF",
     },
   },
-  typography: { fontFamily: 'Roboto' },
+  typography: { fontFamily: "Roboto" },
   components: {
-    MuiTextField: { defaultProps: { variant: 'standard' } },
-    MuiFormControl: { defaultProps: { variant: 'standard' } },
-    MuiSelect: { defaultProps: { variant: 'standard' } },
+    MuiTextField: { defaultProps: { variant: "standard" } },
+    MuiFormControl: { defaultProps: { variant: "standard" } },
+    MuiSelect: { defaultProps: { variant: "standard" } },
     MuiButton: {
-      defaultProps: { variant: 'contained', disableElevation: true },
+      defaultProps: { variant: "contained", disableElevation: true },
     },
-    MuiIconButton: { defaultProps: { color: 'primary' } },
+    MuiIconButton: { defaultProps: { color: "primary" } },
     MuiFab: {
       defaultProps: {
         sx: {
           zIndex: ZIndex.Fab,
-          background: 'white',
-          color: 'var(--primary)',
+          background: "white",
+          color: "var(--primary)",
         },
       },
     },
@@ -60,7 +60,7 @@ const theme = createTheme({
   },
 });
 
-const container = document.getElementById('target') ?? fail();
+const container = document.getElementById("target") ?? fail();
 const root = createRoot(container);
 root.render(
   <Suspense fallback={<Loading />}>

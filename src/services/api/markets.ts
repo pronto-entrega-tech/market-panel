@@ -1,8 +1,8 @@
-import { CreateMarketDto, ProfileType, OpenFlip } from '~/core/types';
-import { transformProfile, transformOpenFlip } from '~/functions/transform';
-import { Address } from '~/pages/SignIn/ConfirmAddress';
-import { local } from '../local';
-import utils from './utils';
+import { CreateMarketDto, ProfileType, OpenFlip } from "~/core/types";
+import { transformProfile, transformOpenFlip } from "~/functions/transform";
+import { Address } from "~/pages/SignIn/ConfirmAddress";
+import { local } from "../local";
+import utils from "./utils";
 
 const { apiCall, authHeader } = utils;
 
@@ -31,19 +31,19 @@ export default {
     const { data } = await apiCall.post<{
       token: string;
       refresh_token: string;
-    }>('/markets', dto, {
+    }>("/markets", dto, {
       headers: { create_token },
     });
 
     const { refresh_token } = data;
-    if (refresh_token) await local.setPassword('token', refresh_token);
+    if (refresh_token) await local.setPassword("token", refresh_token);
 
     return data;
   },
 
   async find() {
     const { data } = await apiCall.get<ProfileType>(
-      '/markets',
+      "/markets",
       await authHeader(),
     );
 
@@ -51,32 +51,32 @@ export default {
   },
 
   async update(dto: any) {
-    await apiCall.patch<ProfileType>('/markets', dto, await authHeader());
+    await apiCall.patch<ProfileType>("/markets", dto, await authHeader());
   },
 
   async uploadPicture(picture: File) {
     const formData = new FormData();
-    formData.append('picture', picture);
+    formData.append("picture", picture);
 
-    return apiCall.post('/markets/upload-picture', formData, {
+    return apiCall.post("/markets/upload-picture", formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
         ...(await authHeader()).headers,
       },
     });
   },
 
   openFlip: {
-    async create(dto: Pick<OpenFlip, 'type'>) {
+    async create(dto: Pick<OpenFlip, "type">) {
       const { data } = await apiCall.post<OpenFlip>(
-        '/markets/open-flip',
+        "/markets/open-flip",
         dto,
         await authHeader(),
       );
       return transformOpenFlip(data);
     },
 
-    async delete(date: OpenFlip['created_at']) {
+    async delete(date: OpenFlip["created_at"]) {
       await apiCall.delete(`/markets/open-flip/${+date}`, await authHeader());
     },
   },

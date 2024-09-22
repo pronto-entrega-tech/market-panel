@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import * as mui from '@mui/material';
-import LogoIconSvg from '~/assets/logo-icon_b.svg';
+import styled from "styled-components";
+import * as mui from "@mui/material";
+import LogoIconSvg from "~/assets/logo-icon_b.svg";
 
 export const Container = styled.div`
   height: -webkit-fill-available;
@@ -15,7 +15,7 @@ export const Container = styled.div`
 
 export const LogoIcon = styled(mui.SvgIcon).attrs({
   component: LogoIconSvg,
-  viewBox: '0 0 280 280',
+  viewBox: "0 0 280 280",
 })`
   height: 110px;
   width: 110px;

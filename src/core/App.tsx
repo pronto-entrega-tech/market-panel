@@ -1,10 +1,10 @@
-import styled from 'styled-components';
-import Routes from '~/core/Routes';
-import useMyContext from '~/core/context';
-import Nav from './Nav';
-import SighIn from '~/pages/SignIn';
-import dbSync from './dbSync';
-import Loading from '~/components/Loading';
+import styled from "styled-components";
+import Routes from "~/core/Routes";
+import useMyContext from "~/core/context";
+import Nav from "./Nav";
+import SighIn from "~/pages/SignIn";
+import dbSync from "./dbSync";
+import Loading from "~/components/Loading";
 
 const Container = styled.div`
   display: flex;

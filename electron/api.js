@@ -1,22 +1,22 @@
-require('reflect-metadata');
-const { promisify } = require('util');
-const { ipcMain, dialog } = require('electron');
-const { Client } = require('pg');
-const fsPro = require('fs/promises');
-const glob = promisify(require('glob'));
-const exec = promisify(require('child_process').exec);
-const keytar = require('keytar');
+require("reflect-metadata");
+const { promisify } = require("util");
+const { ipcMain, dialog } = require("electron");
+const { Client } = require("pg");
+const fsPro = require("fs/promises");
+const glob = promisify(require("glob"));
+const exec = promisify(require("child_process").exec);
+const keytar = require("keytar");
 
-const keytarService = 'ProntoEntrega';
+const keytarService = "ProntoEntrega";
 const validatePasswordName = (name) => {
-  const valid = ['token', 'database'].includes(name);
-  if (!valid) throw new Error('Invalid password name');
+  const valid = ["token", "database"].includes(name);
+  if (!valid) throw new Error("Invalid password name");
 };
 
 const hbaData =
-  '#temp\nhost all all 127.0.0.1/32 trust\nhost all all ::1/128 trust\n#temp\n';
+  "#temp\nhost all all 127.0.0.1/32 trust\nhost all all ::1/128 trust\n#temp\n";
 
-const escape = (v) => v.replace(/"/g, '');
+const escape = (v) => v.replace(/"/g, "");
 
 const local = (channel, listener) => ({
   [channel]: () => {
@@ -55,68 +55,68 @@ const dbQuery = (channel, listener) => ({
 });
 
 const downloadsPath =
-  process.platform === 'win32'
-    ? 'C:Users\\%USERPROFILE%\\Downloads'
-    : '/Users/%USERPROFILE%/Downloads';
+  process.platform === "win32"
+    ? "C:Users\\%USERPROFILE%\\Downloads"
+    : "/Users/%USERPROFILE%/Downloads";
 
 const apis = (win) => ({
-  ...local('getReceipt', async () => {
+  ...local("getReceipt", async () => {
     const res = await dialog.showOpenDialog(win, {
       title: 'Abra "NF-e.xml"',
       defaultPath: downloadsPath,
-      properties: ['openFile'],
-      filters: [{ name: 'xml', extensions: ['xml'] }],
+      properties: ["openFile"],
+      filters: [{ name: "xml", extensions: ["xml"] }],
     });
     return res.filePaths[0];
   }),
-  ...local('getPicture', async () => {
+  ...local("getPicture", async () => {
     const res = await dialog.showOpenDialog(win, {
-      title: 'Selecione uma imagem',
+      title: "Selecione uma imagem",
       defaultPath: downloadsPath,
-      properties: ['openFile'],
-      filters: [{ name: 'image', extensions: ['jpg', 'jpeg', 'png', 'gif'] }],
+      properties: ["openFile"],
+      filters: [{ name: "image", extensions: ["jpg", "jpeg", "png", "gif"] }],
     });
     if (res.canceled) return;
 
     const file = await fsPro.readFile(res.filePaths[0]);
 
-    return { name: res.filePaths[0].split('/').at(-1), data: file };
+    return { name: res.filePaths[0].split("/").at(-1), data: file };
   }),
-  ...dbQuery('dbQuery', (...args) => {
+  ...dbQuery("dbQuery", (...args) => {
     const action = args[1];
 
     args[1] = (() => {
       const query = {
-        selectDBs: 'SELECT datname FROM pg_database',
+        selectDBs: "SELECT datname FROM pg_database",
         selectTables:
           "SELECT table_name FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema='public'",
         selectColumns:
-          'SELECT column_name FROM information_schema.columns WHERE table_name=$1',
+          "SELECT column_name FROM information_schema.columns WHERE table_name=$1",
         selectUsers: "SELECT 1 FROM pg_roles WHERE rolname='pe_reader'",
       }[action];
 
-      if (!query) throw new Error('Invalid query');
+      if (!query) throw new Error("Invalid query");
       return query;
     })();
 
     return args;
   }),
-  ...local('findFile', async (rawPath, file) => {
+  ...local("findFile", async (rawPath, file) => {
     const basePath = escape(rawPath);
 
     const path = {
       pg_hba: `${basePath}/**/pg_hba.conf`,
       pg_ctl: `${basePath}/**/pg_ctl`,
     }[file];
-    if (!path) throw new Error('Invalid file');
+    if (!path) throw new Error("Invalid file");
 
     return await glob(path);
   }),
-  ...local('modifyHba', async (rawPath) => {
+  ...local("modifyHba", async (rawPath) => {
     const path = escape(rawPath);
-    if (!path.endsWith('/pg_hba.conf')) throw new Error('Invalid file');
+    if (!path.endsWith("/pg_hba.conf")) throw new Error("Invalid file");
 
-    const original = await fsPro.readFile(path, 'utf8');
+    const original = await fsPro.readFile(path, "utf8");
 
     const alreadyModified = original.startsWith(hbaData);
     if (!alreadyModified) {
@@ -124,41 +124,41 @@ const apis = (win) => ({
     }
     return alreadyModified;
   }),
-  ...local('restoreHba', async (rawPath) => {
+  ...local("restoreHba", async (rawPath) => {
     const path = escape(rawPath);
-    if (!path.endsWith('/pg_hba.conf')) throw new Error('Invalid file');
+    if (!path.endsWith("/pg_hba.conf")) throw new Error("Invalid file");
 
     const original = (await fsPro.readFile(path)).toString();
 
     if (original.startsWith(hbaData)) {
-      await fsPro.writeFile(path, original.replace(hbaData, ''));
+      await fsPro.writeFile(path, original.replace(hbaData, ""));
     }
   }),
-  ...dbQuery('dbUser', (conOptions, exist, ...rawParams) => {
+  ...dbQuery("dbUser", (conOptions, exist, ...rawParams) => {
     const [pass, table] = rawParams.map(escape);
-    const action = !exist ? 'CREATE USER' : 'ALTER ROLE';
+    const action = !exist ? "CREATE USER" : "ALTER ROLE";
 
     const query = `${action} pe_reader WITH PASSWORD "${pass}"; GRANT SELECT ON "${table}" TO pe_reader`;
 
     return [conOptions, query];
   }),
-  ...dbQuery('dbRead', (conOptions, ...rawParams) => {
+  ...dbQuery("dbRead", (conOptions, ...rawParams) => {
     const [columns, table] = rawParams.map(escape);
 
     const query = `SELECT ${columns} FROM '${table}'`;
 
     return [conOptions, query];
   }),
-  ...local('reloadPg', async (...args) => {
+  ...local("reloadPg", async (...args) => {
     const [pg_ctlPath, dataPath] = args.map(escape);
 
     return await exec(`"${pg_ctlPath}" -D "${dataPath}" reload`);
   }),
-  ...local('setPassword', async (name, value) => {
+  ...local("setPassword", async (name, value) => {
     validatePasswordName(name);
     return keytar.setPassword(keytarService, name, value);
   }),
-  ...local('getPassword', async (name) => {
+  ...local("getPassword", async (name) => {
     validatePasswordName(name);
     return keytar.getPassword(keytarService, name);
   }),

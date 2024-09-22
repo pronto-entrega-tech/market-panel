@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 
 export const useError = () => {
   const [hasError, setHasError] = useState(false);

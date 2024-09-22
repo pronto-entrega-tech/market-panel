@@ -9,27 +9,27 @@ import {
   Name,
   OpenLabel,
   Button,
-} from './styles';
-import useMyContext from '~/core/context';
-import { useEffect, useState } from 'react';
-import { Camera as CameraIcon } from 'mdi-material-ui';
-import { local } from '~/services/local';
-import { api } from '~/services/api';
-import { OpenFlip, ProfileType } from '~/core/types';
-import MyErrors from '~/components/Errors';
-import Loading from '~/components/Loading';
-import { errMsg } from '~/constants/errorMessages';
-import { getMarketOpenness, getOpennessMsg } from '~/functions/marketOpenness';
-import { fail } from '~/functions/fail';
-import { useLoading } from '~/hooks/useLoading';
-import { second } from '~/constants/time';
-import { lightFormat } from 'date-fns';
-import { timeStringToMs } from '~/functions/timeStringToMs';
-import { useNavigate } from 'react-router-dom';
-import { Page } from '~/constants/pages';
-import { getImageUrl } from '~/functions/imageUrl';
-import { useError } from '~/hooks/useError';
-import { Backdrop } from '@mui/material';
+} from "./styles";
+import useMyContext from "~/core/context";
+import { useEffect, useState } from "react";
+import { Camera as CameraIcon } from "mdi-material-ui";
+import { local } from "~/services/local";
+import { api } from "~/services/api";
+import { OpenFlip, ProfileType } from "~/core/types";
+import MyErrors from "~/components/Errors";
+import Loading from "~/components/Loading";
+import { errMsg } from "~/constants/errorMessages";
+import { getMarketOpenness, getOpennessMsg } from "~/functions/marketOpenness";
+import { fail } from "~/functions/fail";
+import { useLoading } from "~/hooks/useLoading";
+import { second } from "~/constants/time";
+import { lightFormat } from "date-fns";
+import { timeStringToMs } from "~/functions/timeStringToMs";
+import { useNavigate } from "react-router-dom";
+import { Page } from "~/constants/pages";
+import { getImageUrl } from "~/functions/imageUrl";
+import { useError } from "~/hooks/useError";
+import { Backdrop } from "@mui/material";
 
 export const useProfileState = () => {
   const { socket } = useMyContext();
@@ -76,9 +76,9 @@ function Profile({
     if (!openness.nextHour) return;
 
     const getTimeLeftToNextBH = (now: Date) => {
-      const nowInMs = timeStringToMs(lightFormat(now, 'HH:mm:ss:MM'));
+      const nowInMs = timeStringToMs(lightFormat(now, "HH:mm:ss:MM"));
       const nextBhTimeInMs = timeStringToMs(
-        !openness.nextHour.isTomorrow ? openness.nextHour.time : '24', // new day
+        !openness.nextHour.isTomorrow ? openness.nextHour.time : "24", // new day
       );
 
       const timeLeft = nextBhTimeInMs - nowInMs;
@@ -94,7 +94,7 @@ function Profile({
   }, [profile, now]);
 
   const openFlip = async () => {
-    const createOpenFlip = withLoading(async (type: OpenFlip['type']) => {
+    const createOpenFlip = withLoading(async (type: OpenFlip["type"]) => {
       const flip = await api.markets.openFlip.create({ type });
 
       setProfile((old) => {
@@ -105,7 +105,7 @@ function Profile({
     });
 
     const deleteOpenFlip = withLoading(async () => {
-      if (!flipDate) return fail('Missing flipDate');
+      if (!flipDate) return fail("Missing flipDate");
 
       await api.markets.openFlip.delete(flipDate);
 
@@ -123,32 +123,32 @@ function Profile({
     }
 
     if (!isOpen) {
-      return createOpenFlip('OPEN');
+      return createOpenFlip("OPEN");
     }
 
-    alert('Fechar até quando?', '', {
-      confirmTitle: 'Até final do dia',
-      cancelTitle: 'Até o proximo hora de abertura',
-      onConfirm: () => createOpenFlip('CLOSE_UNTIL_NEXT_DAY'),
-      onCancel: () => createOpenFlip('CLOSE_UNTIL_NEXT_OPEN'),
+    alert("Fechar até quando?", "", {
+      confirmTitle: "Até final do dia",
+      cancelTitle: "Até o proximo hora de abertura",
+      onConfirm: () => createOpenFlip("CLOSE_UNTIL_NEXT_DAY"),
+      onCancel: () => createOpenFlip("CLOSE_UNTIL_NEXT_OPEN"),
     });
   };
 
-  if (hasError) return <MyErrors type='server' onTryAgain={tryAgain} />;
+  if (hasError) return <MyErrors type="server" onTryAgain={tryAgain} />;
   if (!profile || isLoading) return <Loading />;
 
-  const pictureUrl = getImageUrl('market', profile.market_id);
+  const pictureUrl = getImageUrl("market", profile.market_id);
 
   const changePicture = async () => {
     const picture = await local
       .getPicture()
-      .catch(() => alert('Erro ao obter imagem'));
+      .catch(() => alert("Erro ao obter imagem"));
     if (!picture) return;
 
     withLoading(() =>
       api.markets
         .uploadPicture(new File([picture.data], picture.name))
-        .then(() => fetch(pictureUrl, { cache: 'reload' }))
+        .then(() => fetch(pictureUrl, { cache: "reload" }))
         .catch(() => alert(errMsg.server())),
     )();
   };
@@ -157,13 +157,15 @@ function Profile({
     <>
       <Header>
         <AvatarButton
-          sx={{ background: 'white' }}
+          sx={{ background: "white" }}
           disabled={!canShowPicture}
-          onClick={() => setShowPicture(true)}>
+          onClick={() => setShowPicture(true)}
+        >
           <Avatar
             onLoad={() => setCanShowPicture(true)}
             src={pictureUrl}
-            className={canShowPicture === false ? 'fallback' : undefined}>
+            className={canShowPicture === false ? "fallback" : undefined}
+          >
             <CartIcon />
           </Avatar>
         </AvatarButton>
@@ -171,8 +173,9 @@ function Profile({
           <Picture onError={() => setShowPicture(false)} src={pictureUrl} />
         </Backdrop>
         <ChangePictureButton
-          aria-label='Mudar foto de perfil'
-          onClick={changePicture}>
+          aria-label="Mudar foto de perfil"
+          onClick={changePicture}
+        >
           <CameraIcon />
         </ChangePictureButton>
         <SubHeader>
@@ -182,8 +185,8 @@ function Profile({
       </Header>
       <Button onClick={openFlip}>
         {!isEarly
-          ? `${isOpen ? 'Fechar' : 'Abrir'} mais cedo`
-          : 'Voltar ao horário programado'}
+          ? `${isOpen ? "Fechar" : "Abrir"} mais cedo`
+          : "Voltar ao horário programado"}
       </Button>
       <Button onClick={() => navigate(Page.EditProfile)}>Editar Perfil</Button>
       <Button onClick={() => navigate(Page.EditBHs)}>Editar horários</Button>

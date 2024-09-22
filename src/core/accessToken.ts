@@ -1,6 +1,6 @@
-import { isPast } from 'date-fns';
-import { getTokenExp } from '~/functions/tokenExp';
-import { api } from '~/services/api';
+import { isPast } from "date-fns";
+import { getTokenExp } from "~/functions/tokenExp";
+import { api } from "~/services/api";
 
 export type AccessToken = string | null | undefined;
 

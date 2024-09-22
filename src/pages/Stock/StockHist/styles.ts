@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import * as mui from '@mui/material';
-import { componentWidth } from '~/constants/componentWidths';
+import styled from "styled-components";
+import * as mui from "@mui/material";
+import { componentWidth } from "~/constants/componentWidths";
 
 export const OrderList = styled(mui.Box).attrs({
   boxShadow: 3,

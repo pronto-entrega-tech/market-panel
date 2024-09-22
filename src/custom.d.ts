@@ -1,9 +1,9 @@
-declare module '*.svg' {
+declare module "*.svg" {
   const content: React.FC<React.SVGProps<SVGSVGElement>>;
   export default content;
 }
 
-declare module 'secure-electron-store' {
+declare module "secure-electron-store" {
   export const writeConfigRequest: string;
   export const readConfigRequest: string;
   export const readConfigResponse: string;

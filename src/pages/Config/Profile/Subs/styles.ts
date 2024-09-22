@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import * as mui from '@mui/material';
+import styled from "styled-components";
+import * as mui from "@mui/material";
 
 export const CardsContainer = styled.div`
   display: flex;
@@ -43,7 +43,7 @@ export const CardButtons = styled.div`
 export const IconButton = styled(mui.IconButton)``;
 
 export const SelectButton = styled(mui.Button).attrs({
-  variant: 'outlined',
+  variant: "outlined",
 })`
   &.unselected {
     color: var(--unselected);

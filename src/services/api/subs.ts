@@ -1,13 +1,13 @@
-import { MarketSub, CreateSubDto } from '~/core/types';
-import { transformMarketSub } from '~/functions/transform';
-import utils from './utils';
+import { MarketSub, CreateSubDto } from "~/core/types";
+import { transformMarketSub } from "~/functions/transform";
+import utils from "./utils";
 
 const { apiCall, authHeader } = utils;
 
 export default {
   async create(dto: CreateSubDto) {
     const { data } = await apiCall.post<MarketSub>(
-      '/markets/sub',
+      "/markets/sub",
       dto,
       await authHeader(),
     );
@@ -16,7 +16,7 @@ export default {
 
   async findMany() {
     const { data } = await apiCall.get<MarketSub[]>(
-      '/markets/sub',
+      "/markets/sub",
       await authHeader(),
     );
     return data.map(transformMarketSub);

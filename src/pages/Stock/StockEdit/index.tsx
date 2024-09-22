@@ -1,12 +1,12 @@
-import { CheckAll as ConfirmAllIcon } from 'mdi-material-ui';
-import { Container, HeaderLine, Title, ConfirmAll } from './styles';
-import Loading from '~/components/Loading';
-import StockEditItem from './StockEditItem';
-import { Central } from '~/components/Central/styles';
-import { FixedSizeList } from 'react-window';
-import { useWindowSize } from '~/hooks/useWindowSize';
-import { componentWidth } from '~/constants/componentWidths';
-import { useStockEditContext } from '~/contexts/StockEditContext';
+import { CheckAll as ConfirmAllIcon } from "mdi-material-ui";
+import { Container, HeaderLine, Title, ConfirmAll } from "./styles";
+import Loading from "~/components/Loading";
+import StockEditItem from "./StockEditItem";
+import { Central } from "~/components/Central/styles";
+import { FixedSizeList } from "react-window";
+import { useWindowSize } from "~/hooks/useWindowSize";
+import { componentWidth } from "~/constants/componentWidths";
+import { useStockEditContext } from "~/contexts/StockEditContext";
 
 const ConfirmAllButton = () => {
   const { confirmAll } = useStockEditContext();
@@ -40,7 +40,8 @@ function StockEdit() {
           componentWidth.stockHist
         }
         itemCount={keys.length}
-        itemSize={189}>
+        itemSize={189}
+      >
         {({ index, style }) => {
           const key = keys[index];
           return (

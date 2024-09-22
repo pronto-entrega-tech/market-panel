@@ -1,14 +1,14 @@
-import { ReactNode, useState, useCallback, useEffect } from 'react';
-import { Socket } from 'socket.io-client';
-import { createContext, useContextSelector } from 'use-context-selector';
-import { notifyMsg } from '~/constants/notifyMessages';
-import useMyContext from '~/core/context';
-import { ChatMsg, CreateChatMsgDto, PendingChatMsg } from '~/core/types';
-import { createUseContext } from '~/functions/createUseContext';
-import { fail } from '~/functions/fail';
-import { transformCreatedAt } from '~/functions/transform';
-import { api } from '~/services/api';
-import { withMutex } from '~/services/mutex';
+import { ReactNode, useState, useCallback, useEffect } from "react";
+import { Socket } from "socket.io-client";
+import { createContext, useContextSelector } from "use-context-selector";
+import { notifyMsg } from "~/constants/notifyMessages";
+import useMyContext from "~/core/context";
+import { ChatMsg, CreateChatMsgDto, PendingChatMsg } from "~/core/types";
+import { createUseContext } from "~/functions/createUseContext";
+import { fail } from "~/functions/fail";
+import { transformCreatedAt } from "~/functions/transform";
+import { api } from "~/services/api";
+import { withMutex } from "~/services/mutex";
 
 type ChatMap = Map<string, ChatMsg>;
 
@@ -50,7 +50,7 @@ const useProviderValues = () => {
 
   useEffect(() => {
     if (socket)
-      socket.on('chatMsg', (newMsg: ChatMsg) => {
+      socket.on("chatMsg", (newMsg: ChatMsg) => {
         setNewMsgs((old) => [...old, newMsg]);
       });
   }, [socket]);
@@ -61,8 +61,8 @@ const useProviderValues = () => {
     newMsgs.forEach((newMsg: ChatMsg) => {
       const isChatOpen = allOpenChats.includes(newMsg.customer_id);
 
-      if (newMsg.author === 'CUSTOMER' && !isChatOpen)
-        notify(notifyMsg.msgReceded(newMsg.market_order_id), '', {
+      if (newMsg.author === "CUSTOMER" && !isChatOpen)
+        notify(notifyMsg.msgReceded(newMsg.market_order_id), "", {
           customer_id: newMsg.customer_id,
         });
 
@@ -80,7 +80,7 @@ const useProviderValues = () => {
 
   const subscribeToChatMsgs = useCallback(
     (socket: Socket, order_id: string) => {
-      (socket ?? fail('Missing socket')).emit('subscribeToChatMsgs', order_id);
+      (socket ?? fail("Missing socket")).emit("subscribeToChatMsgs", order_id);
     },
     [],
   );
@@ -172,7 +172,7 @@ const ChatContext = createContext({} as ChatContextValues);
 const PublicContext = {
   ...({} as Omit<
     ChatContextValues,
-    'getChat' | 'allPendingMsgs' | 'allOpenChats' | 'openChat' | 'closeChat'
+    "getChat" | "allPendingMsgs" | "allOpenChats" | "openChat" | "closeChat"
   >),
 }; // Just for the typing
 

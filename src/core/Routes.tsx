@@ -1,20 +1,20 @@
-import { Routes, Route } from 'react-router-dom';
-import { Page } from '~/constants/pages';
-import Orders, { useOrdersState } from '~/pages/Orders';
-import Stock, { useStockState } from '~/pages/Stock';
-import { useStockHistState } from '~/pages/Stock/StockHist';
-import Help from '~/pages/Help';
-import Config, { useConfigState } from '~/pages/Config';
-import Profile, { useProfileState } from '~/pages/Config/Profile';
-import EditProfile from '~/pages/Config/Profile/EditProfile';
-import Plugin from '~/pages/Config/Plugin';
+import { Routes, Route } from "react-router-dom";
+import { Page } from "~/constants/pages";
+import Orders, { useOrdersState } from "~/pages/Orders";
+import Stock, { useStockState } from "~/pages/Stock";
+import { useStockHistState } from "~/pages/Stock/StockHist";
+import Help from "~/pages/Help";
+import Config, { useConfigState } from "~/pages/Config";
+import Profile, { useProfileState } from "~/pages/Config/Profile";
+import EditProfile from "~/pages/Config/Profile/EditProfile";
+import Plugin from "~/pages/Config/Plugin";
 import BusinessHours, {
   useBusinessHours,
-} from '~/pages/Config/Profile/BusinessHours';
+} from "~/pages/Config/Profile/BusinessHours";
 import SpecialDays, {
   useSpecialDaysState,
-} from '~/pages/Config/Profile/SpecialDays';
-import Subs from '~/pages/Config/Profile/Subs';
+} from "~/pages/Config/Profile/SpecialDays";
+import Subs from "~/pages/Config/Profile/Subs";
 
 const AppRoutes = () => {
   const orderState = useOrdersState();

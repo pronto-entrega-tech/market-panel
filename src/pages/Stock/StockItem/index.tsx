@@ -1,7 +1,7 @@
-import { Plus as AddIcon } from 'mdi-material-ui';
-import { moneyString } from '~/functions/money';
-import { ProductType } from '~/core/types';
-import { Container, Code, Price, Quantity, Description, Add } from './styles';
+import { Plus as AddIcon } from "mdi-material-ui";
+import { moneyString } from "~/functions/money";
+import { ProductType } from "~/core/types";
+import { Container, Code, Price, Quantity, Description, Add } from "./styles";
 
 function StockItem({
   product,

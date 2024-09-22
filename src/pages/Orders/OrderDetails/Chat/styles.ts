@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import * as mui from '@mui/material';
+import styled from "styled-components";
+import * as mui from "@mui/material";
 
 export const Background = styled.div`
   display: flex;
@@ -54,7 +54,7 @@ export const InputContainer = styled(mui.Box).attrs({
 
 export const Input = styled(mui.TextField).attrs({
   multiline: true,
-  variant: 'outlined',
+  variant: "outlined",
 })`
   flex: 1;
   margin: 8px;
@@ -116,5 +116,5 @@ export const Time = styled.div`
 `;
 
 export const RetryButton = styled(mui.Button).attrs({
-  variant: 'text',
+  variant: "text",
 })``;

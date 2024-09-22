@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
-import { FixedSizeList } from 'react-window';
-import useMyContext from '~/core/context';
-import { ProductActivity } from '~/core/types';
-import { api } from '~/services/api';
-import MyErrors from '~/components/Errors';
-import Loading from '~/components/Loading';
-import { OrderList, HeaderLine, SearchBar } from './styles';
-import StockHistItem from './StockHistItem';
-import { useWindowSize } from '~/hooks/useWindowSize';
-import { componentWidth } from '~/constants/componentWidths';
-import { errMsg } from '~/constants/errorMessages';
-import { useLoading } from '~/hooks/useLoading';
+import { useEffect, useState } from "react";
+import { FixedSizeList } from "react-window";
+import useMyContext from "~/core/context";
+import { ProductActivity } from "~/core/types";
+import { api } from "~/services/api";
+import MyErrors from "~/components/Errors";
+import Loading from "~/components/Loading";
+import { OrderList, HeaderLine, SearchBar } from "./styles";
+import StockHistItem from "./StockHistItem";
+import { useWindowSize } from "~/hooks/useWindowSize";
+import { componentWidth } from "~/constants/componentWidths";
+import { errMsg } from "~/constants/errorMessages";
+import { useLoading } from "~/hooks/useLoading";
 
 export const useStockHistState = () => {
   const { socket, alert } = useMyContext();
@@ -18,7 +18,7 @@ export const useStockHistState = () => {
   const [isLoading, , withLoading] = useLoading();
   const [activities, setActivities] = useState<ProductActivity[]>();
   const [queryActivities, setQueryActivities] = useState<ProductActivity[]>();
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     api.products
@@ -30,7 +30,7 @@ export const useStockHistState = () => {
   useEffect(() => {
     if (!socket) return;
 
-    socket.on('items-activities', (...newActivities: ProductActivity[]) => {
+    socket.on("items-activities", (...newActivities: ProductActivity[]) => {
       setActivities((activities = []) => [...newActivities, ...activities]);
     });
   }, [socket]);
@@ -67,7 +67,7 @@ const StockHistBody = ({
 
   const activities = p.queryActivities ?? p.activities;
 
-  if (hasError) return <MyErrors type='server' />;
+  if (hasError) return <MyErrors type="server" />;
   if (!activities || isLoading) return <Loading />;
 
   return (
@@ -76,15 +76,16 @@ const StockHistBody = ({
         <SearchBar
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onKeyPress={(e) => e.key === 'Enter' && fetchQuery()}
-          placeholder='Busque por código ou descrição'
+          onKeyPress={(e) => e.key === "Enter" && fetchQuery()}
+          placeholder="Busque por código ou descrição"
         />
       </HeaderLine>
       <FixedSizeList
         height={height - 56}
         width={componentWidth.stockHist}
         itemCount={activities.length}
-        itemSize={80}>
+        itemSize={80}
+      >
         {({ index, style }) => (
           <div key={activities[index].item_id} style={style}>
             <StockHistItem activity={activities[index]} />

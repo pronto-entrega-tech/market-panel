@@ -1,4 +1,4 @@
-import { Button, CircularProgress } from '@mui/material';
+import { Button, CircularProgress } from "@mui/material";
 
 const LoadingButton = (
   p: { loading: boolean } & Parameters<typeof Button>[0],

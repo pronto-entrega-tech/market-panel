@@ -1,8 +1,8 @@
-const { contextBridge, ipcRenderer } = require('electron');
-const fs = require('fs');
-const Store = require('secure-electron-store').default;
-const ContextMenu = require('secure-electron-context-menu').default;
-const { apisList } = require('./api');
+const { contextBridge, ipcRenderer } = require("electron");
+const fs = require("fs");
+const Store = require("secure-electron-store").default;
+const ContextMenu = require("secure-electron-context-menu").default;
+const { apisList } = require("./api");
 
 // Create the electron store to be made available in the renderer process
 const store = new Store();
@@ -25,7 +25,7 @@ const addApis = apisList.reduce(
 
 // Expose protected methods that allow the renderer process to use
 // the ipcRenderer without exposing the entire object
-contextBridge.exposeInMainWorld('local', {
+contextBridge.exposeInMainWorld("local", {
   store: store.preloadBindings(ipcRenderer, fs),
   contextMenu: ContextMenu.preloadBindings(ipcRenderer),
   ...addApis,

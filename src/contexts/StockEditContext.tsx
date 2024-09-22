@@ -1,61 +1,61 @@
-import { useState, ReactNode, useCallback } from 'react';
-import { createContext, useContextSelector } from 'use-context-selector';
-import { errMsg } from '~/constants/errorMessages';
-import useMyContext from '~/core/context';
-import { DiscountType, ProductType, SetProductDto } from '~/core/types';
-import { createUseContext } from '~/functions/createUseContext';
-import { fail } from '~/functions/fail';
-import { api } from '~/services/api';
-import { pick } from '~/functions/pick';
+import { useState, ReactNode, useCallback } from "react";
+import { createContext, useContextSelector } from "use-context-selector";
+import { errMsg } from "~/constants/errorMessages";
+import useMyContext from "~/core/context";
+import { DiscountType, ProductType, SetProductDto } from "~/core/types";
+import { createUseContext } from "~/functions/createUseContext";
+import { fail } from "~/functions/fail";
+import { api } from "~/services/api";
+import { pick } from "~/functions/pick";
 
 const productNotStatefulProps = [
-  'item_id',
-  'city_slug',
-  'code',
-  'isNew',
-  'key',
+  "item_id",
+  "city_slug",
+  "code",
+  "isNew",
+  "key",
 ] as const;
-type ProductNotStatefulProps = typeof productNotStatefulProps[number];
+type ProductNotStatefulProps = (typeof productNotStatefulProps)[number];
 
 export type StockState = {
   product: ProductType;
   state: Omit<
     SetProductDto,
-    ProductNotStatefulProps | 'discount_value_1' | 'discount_value_2'
+    ProductNotStatefulProps | "discount_value_1" | "discount_value_2"
   >;
   discountState: Record<
-    DiscountType | '',
-    { [x in 'v1' | 'v2']: { placeholder: string; value: string } }
+    DiscountType | "",
+    { [x in "v1" | "v2"]: { placeholder: string; value: string } }
   >;
 };
 
 const createState = (product: ProductType): StockState => ({
   product,
-  state: { price: '', stock: '' },
+  state: { price: "", stock: "" },
   discountState: {
     DISCOUNT_VALUE: {
-      v1: { placeholder: '0', value: '' },
-      v2: { placeholder: '', value: '' },
+      v1: { placeholder: "0", value: "" },
+      v2: { placeholder: "", value: "" },
     },
     DISCOUNT_PERCENT: {
-      v1: { placeholder: '0', value: '' },
-      v2: { placeholder: '', value: '' },
+      v1: { placeholder: "0", value: "" },
+      v2: { placeholder: "", value: "" },
     },
     DISCOUNT_PERCENT_ON_SECOND: {
-      v1: { placeholder: '0', value: '' },
-      v2: { placeholder: '2', value: '' },
+      v1: { placeholder: "0", value: "" },
+      v2: { placeholder: "2", value: "" },
     },
     ONE_FREE: {
-      v1: { placeholder: '3', value: '' },
-      v2: { placeholder: '1', value: '' },
+      v1: { placeholder: "3", value: "" },
+      v2: { placeholder: "1", value: "" },
     },
-    [product.discount_type ?? '']: {
-      v1: { placeholder: product.discount_value_1, value: '' },
-      v2: { placeholder: product.discount_value_2, value: '' },
+    [product.discount_type ?? ""]: {
+      v1: { placeholder: product.discount_value_1, value: "" },
+      v2: { placeholder: product.discount_value_2, value: "" },
     },
-    ['']: {
-      v1: { placeholder: '', value: '' },
-      v2: { placeholder: '', value: '' },
+    [""]: {
+      v1: { placeholder: "", value: "" },
+      v2: { placeholder: "", value: "" },
     },
   },
 });
@@ -68,13 +68,13 @@ const tryGetStateFrom = (states: Map<string, StockState>, key: string) =>
   });
 
 const createDto = (v: StockState): SetProductDto => {
-  const discount = v.discountState[v.product.discount_type ?? ''];
+  const discount = v.discountState[v.product.discount_type ?? ""];
 
   const isDifferentType = v.state.discount_type !== v.product.discount_type;
   const a = (v: string) => (v ? +v : isDifferentType ? null : undefined);
 
   return {
-    ...pick(v.product, 'item_id', 'city_slug', 'code'),
+    ...pick(v.product, "item_id", "city_slug", "code"),
     ...v.state,
     discount_value_1: a(discount.v1.value),
     discount_value_2: a(discount.v2.value),
@@ -195,7 +195,7 @@ type StockEditContextValues = ReturnType<typeof useProviderValues>;
 const StockEditContext = createContext({} as StockEditContextValues);
 
 const PublicContext = {
-  ...({} as Omit<StockEditContextValues, 'getState' | 'confirm'>),
+  ...({} as Omit<StockEditContextValues, "getState" | "confirm">),
 }; // Just for the typing
 
 export const useStockEditContext = createUseContext<typeof PublicContext>(

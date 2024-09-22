@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import Loading from '~/components/Loading';
-import { api } from '~/services/api';
-import useMyContext from '~/core/context';
-import { Container, Title, Row, Input, ButtonsRow, Button } from './styles';
-import { errMsg } from '~/constants/errorMessages';
-import { CreateMarketDto } from '~/core/types';
-import { useLoading } from '~/hooks/useLoading';
+import { useState } from "react";
+import Loading from "~/components/Loading";
+import { api } from "~/services/api";
+import useMyContext from "~/core/context";
+import { Container, Title, Row, Input, ButtonsRow, Button } from "./styles";
+import { errMsg } from "~/constants/errorMessages";
+import { CreateMarketDto } from "~/core/types";
+import { useLoading } from "~/hooks/useLoading";
 
 export type Address = {
   address_street: string;
@@ -17,12 +17,12 @@ export type Address = {
 };
 
 const props: [string, string, string?][] = [
-  ['address_street', 'Rua', 'half1'],
-  ['address_number', 'Numero', 'half2'],
-  ['address_district', 'Bairro'],
-  ['address_city', 'Cidade', 'half1'],
-  ['address_state', 'Estado', 'half2'],
-  ['address_complement', 'Complemento'],
+  ["address_street", "Rua", "half1"],
+  ["address_number", "Numero", "half2"],
+  ["address_district", "Bairro"],
+  ["address_city", "Cidade", "half1"],
+  ["address_state", "Estado", "half2"],
+  ["address_complement", "Complemento"],
 ];
 
 const ConfirmAddress = (p: {
@@ -55,7 +55,7 @@ const ConfirmAddress = (p: {
     if (hasErr) return setInputError({ ...inputError, ...errs });
 
     try {
-      const validDecimal = (v: string) => v.replace(',', '.');
+      const validDecimal = (v: string) => v.replace(",", ".");
       const { token } = await api.markets.create(p.createToken, {
         ...p.dto,
         ...dto,
@@ -74,7 +74,7 @@ const ConfirmAddress = (p: {
     <Input
       key={name}
       label={name}
-      value={dto[prop] || ''}
+      value={dto[prop] || ""}
       onChange={({ target: { value } }) => {
         setDto({ ...dto, [prop]: value.slice(0, 256) });
         setInputError({ ...inputError, [prop]: false });
@@ -92,7 +92,7 @@ const ConfirmAddress = (p: {
       <Row>{inputs.slice(3, 5)}</Row>
       {inputs.at(5)}
       <ButtonsRow>
-        <Button onClick={p.goBack} variant='outlined'>
+        <Button onClick={p.goBack} variant="outlined">
           Voltar
         </Button>
         <Button onClick={confirm}>Confirmar</Button>

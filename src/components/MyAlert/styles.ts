@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import * as mui from '@mui/material';
+import styled from "styled-components";
+import * as mui from "@mui/material";
 
 export const Title = styled(mui.DialogTitle)`
-  text-align: 'center';
+  text-align: "center";
   font-size: 20;
 `;
 

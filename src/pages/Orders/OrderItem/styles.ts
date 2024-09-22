@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { ButtonBase } from '@mui/material';
+import styled from "styled-components";
+import { ButtonBase } from "@mui/material";
 
 const Container = styled(ButtonBase)`
   && {
@@ -29,7 +29,7 @@ const Id = styled.div`
   grid-row: 1;
   justify-self: flex-start;
   font-size: 14px;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-weight: 500;
   color: rgba(0, 0, 0, 0.8);
 `;
@@ -39,7 +39,7 @@ const Status = styled.div`
   grid-row: 1;
   justify-self: flex-end;
   font-size: 13px;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-weight: 500;
   color: white;
   padding: 4px 8px 4px 8px;

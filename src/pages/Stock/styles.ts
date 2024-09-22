@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import * as mui from '@mui/material';
-import * as icons from 'mdi-material-ui';
-import { componentWidth } from '~/constants/componentWidths';
-import { ZIndex } from '~/constants/zIndex';
+import styled from "styled-components";
+import * as mui from "@mui/material";
+import * as icons from "mdi-material-ui";
+import { componentWidth } from "~/constants/componentWidths";
+import { ZIndex } from "~/constants/zIndex";
 
 export const Container = styled.div`
   height: -webkit-fill-available;

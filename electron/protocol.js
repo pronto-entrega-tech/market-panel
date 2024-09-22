@@ -12,34 +12,34 @@ Implementing a custom protocol achieves two goals:
   2) Avoids running the app in a file:// origin
 */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const BUILD_PATH = path.join(__dirname, '../build');
-const scheme = 'app';
+const BUILD_PATH = path.join(__dirname, "../build");
+const scheme = "app";
 
 const mimeTypes = {
-  '.js': 'text/javascript',
-  '.mjs': 'text/javascript',
-  '.html': 'text/html',
-  '.htm': 'text/html',
-  '.json': 'application/json',
-  '.css': 'text/css',
-  '.svg': 'image/svg+xml',
-  '.ico': 'image/vnd.microsoft.icon',
-  '.png': 'image/png',
-  '.jpg': 'image/jpeg',
-  '.map': 'text/plain',
+  ".js": "text/javascript",
+  ".mjs": "text/javascript",
+  ".html": "text/html",
+  ".htm": "text/html",
+  ".json": "application/json",
+  ".css": "text/css",
+  ".svg": "image/svg+xml",
+  ".ico": "image/vnd.microsoft.icon",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".map": "text/plain",
 };
 
 function charset(mimeExt) {
-  return ['.html', '.htm', '.js', '.mjs'].some((m) => m === mimeExt)
-    ? 'utf-8'
+  return [".html", ".htm", ".js", ".mjs"].some((m) => m === mimeExt)
+    ? "utf-8"
     : null;
 }
 
 function mime(filename) {
-  const mimeExt = path.extname(`${filename || ''}`).toLowerCase();
+  const mimeExt = path.extname(`${filename || ""}`).toLowerCase();
   const mimeType = mimeTypes[mimeExt];
   return mimeType ? { mimeExt, mimeType } : { mimeExt: null, mimeType: null };
 }
@@ -47,8 +47,8 @@ function mime(filename) {
 function requestHandler(req, next) {
   const reqUrl = new URL(req.url);
   let reqPath = path.normalize(reqUrl.pathname);
-  if (reqPath === '/') {
-    reqPath = '/index.html';
+  if (reqPath === "/") {
+    reqPath = "/index.html";
   }
   const reqFilename = path.basename(reqPath);
 

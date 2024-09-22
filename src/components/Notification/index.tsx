@@ -1,8 +1,8 @@
-import { Close as CloseIcon } from 'mdi-material-ui';
-import { Slide } from '@mui/material';
-import useMyContext from '~/core/context';
-import { Notification, IconButton } from './styles';
-import { useState, useEffect } from 'react';
+import { Close as CloseIcon } from "mdi-material-ui";
+import { Slide } from "@mui/material";
+import useMyContext from "~/core/context";
+import { Notification, IconButton } from "./styles";
+import { useState, useEffect } from "react";
 
 export type Notif = {
   title: string;

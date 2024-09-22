@@ -1,10 +1,10 @@
-import { Avatar, ClickAwayListener, Slide } from '@mui/material';
+import { Avatar, ClickAwayListener, Slide } from "@mui/material";
 import {
   AlertCircle as ErrorIcon,
   Upload as UploadIcon,
   ClockTimeThreeOutline as ClockIcon,
-} from 'mdi-material-ui';
-import { useState, forwardRef } from 'react';
+} from "mdi-material-ui";
+import { useState, forwardRef } from "react";
 import {
   Background,
   Container,
@@ -20,22 +20,22 @@ import {
   MessagePad,
   Time,
   RetryButton,
-} from './styles';
-import Loading from '~/components/Loading';
+} from "./styles";
+import Loading from "~/components/Loading";
 import {
   useChatContext,
   useOpenChatContext,
   useChatItemContext,
-} from '~/contexts/ChatContext';
-import { OrderType, ChatMsg, PendingChatMsg } from '~/core/types';
-import { formatTime } from '~/functions/format';
-import { pick } from '~/functions/pick';
+} from "~/contexts/ChatContext";
+import { OrderType, ChatMsg, PendingChatMsg } from "~/core/types";
+import { formatTime } from "~/functions/format";
+import { pick } from "~/functions/pick";
 
 const Chat = (p: { order: OrderType }) => {
   const { isOpen, closeChat } = useOpenChatContext(p.order.customer_id);
 
   return (
-    <Slide direction='left' in={isOpen} mountOnEnter unmountOnExit>
+    <Slide direction="left" in={isOpen} mountOnEnter unmountOnExit>
       <Background>
         <ClickAwayListener onClickAway={closeChat}>
           <ChatBody {...p.order} />
@@ -51,14 +51,14 @@ const Chat = (p: { order: OrderType }) => {
 const ChatBody = forwardRef((order: OrderType, ref) => {
   const { addMsg } = useChatContext();
 
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
 
   const sendMsg = () => {
     addMsg({
-      ...pick(order, 'customer_id', 'market_id', 'order_id'),
+      ...pick(order, "customer_id", "market_id", "order_id"),
       message: input,
     });
-    setInput('');
+    setInput("");
   };
 
   return (
@@ -73,12 +73,12 @@ const ChatBody = forwardRef((order: OrderType, ref) => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyPress={(e) => {
-            if (e.key === 'Enter') {
+            if (e.key === "Enter") {
               e.preventDefault();
               sendMsg();
             }
           }}
-          placeholder='Digite uma mensagem'
+          placeholder="Digite uma mensagem"
         />
       </InputContainer>
     </Container>
@@ -120,8 +120,8 @@ const ChatMsgItem = ({
   index: number;
   chat: ChatMsg[];
 }) => {
-  const direction = chatMsg.author === 'CUSTOMER' ? 'left' : 'right';
-  const pad = chat[index - 1]?.author !== chatMsg.author ? 'pad' : '';
+  const direction = chatMsg.author === "CUSTOMER" ? "left" : "right";
+  const pad = chat[index - 1]?.author !== chatMsg.author ? "pad" : "";
 
   return (
     <MsgContainer className={`${direction} ${pad}`}>
@@ -149,14 +149,14 @@ const PendingMsgItem = ({
           Retentar
         </RetryButton>
       ) : null}
-      <MsgContainer className='right'>
+      <MsgContainer className="right">
         <MessageContainer>
           <Message>{pendingMsg.message}</Message>
           <MessagePad />
         </MessageContainer>
         <Time>
           {pendingMsg.hasError ? (
-            <ErrorIcon color='error' fontSize='small' />
+            <ErrorIcon color="error" fontSize="small" />
           ) : (
             <ClockIcon sx={{ fontSize: 16 }} />
           )}

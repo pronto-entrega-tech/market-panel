@@ -2,7 +2,7 @@
   "Create function": {
     "scope": "typescript,typescriptreact",
     "prefix": ["arrow-function", "fn"],
-    "body": ["const $1 = () => "]
+    "body": ["const $1 = () => "],
   },
   "Create react component": {
     "scope": "typescriptreact",
@@ -14,8 +14,8 @@
       "  )",
       "}",
       "",
-      "export default ${TM_DIRECTORY/^.+[\\/\\\\]+(.*)$/$1/};"
-    ]
+      "export default ${TM_DIRECTORY/^.+[\\/\\\\]+(.*)$/$1/};",
+    ],
   },
   "Create styled component": {
     "scope": "typescript",
@@ -24,18 +24,18 @@
       "import styled from 'styled-components';",
       "import * as mui from '@mui/material';",
       "",
-      "export const Container = styled.div``"
-    ]
+      "export const Container = styled.div``",
+    ],
   },
   "Create useState": {
     "scope": "typescriptreact",
     "prefix": ["use-state", "us"],
-    "body": ["const [state, setState] = useState();"]
+    "body": ["const [state, setState] = useState();"],
   },
   "Create useEffect": {
     "scope": "typescriptreact",
     "prefix": ["use-effect", "ue"],
-    "body": ["useEffect(() => {", "", "}, [])"]
+    "body": ["useEffect(() => {", "", "}, [])"],
   },
   "Create context": {
     "scope": "typescriptreact",
@@ -57,7 +57,7 @@
       "",
       "export const ${TM_FILENAME_BASE/Context/$1/}Provider = (props: { children: ReactNode }) => (",
       "  <${TM_FILENAME_BASE}.Provider value={useProviderValues()} {...props} />",
-      ");"
-    ]
-  }
+      ");",
+    ],
+  },
 }

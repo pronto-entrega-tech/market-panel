@@ -1,4 +1,4 @@
-import { Container, Progress } from './styles';
+import { Container, Progress } from "./styles";
 
 const Loading = () => (
   <Container>

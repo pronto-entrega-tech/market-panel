@@ -2,9 +2,9 @@ import {
   writeConfigRequest,
   readConfigResponse,
   readConfigRequest,
-} from 'secure-electron-store';
+} from "secure-electron-store";
 
-const rawStore = window['local']?.store as
+const rawStore = window["local"]?.store as
   | undefined
   | {
       send: (config: string, key: string, value?: unknown) => void;

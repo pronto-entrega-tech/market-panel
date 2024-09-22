@@ -1,7 +1,7 @@
-import axios, { AxiosError } from 'axios';
-import { Url } from '~/constants/urls';
-import { events } from '~/services/events';
-import { getAccessToken } from '~/core/accessToken';
+import axios, { AxiosError } from "axios";
+import { Url } from "~/constants/urls";
+import { events } from "~/services/events";
+import { getAccessToken } from "~/core/accessToken";
 
 const apiCall = axios.create({
   baseURL: Url.Api,
@@ -9,7 +9,7 @@ const apiCall = axios.create({
     (data) => {
       if (data)
         Object.entries(data).forEach(([key, value]) => {
-          if (value === '') delete data[key];
+          if (value === "") delete data[key];
         });
 
       return data;
@@ -23,20 +23,20 @@ const format = (v: any) => {
   try {
     return v && stringify(JSON.parse(v));
   } catch (err) {
-    return 'ERROR';
+    return "ERROR";
   }
 };
 
 apiCall.interceptors.response.use(undefined, (err: AxiosError) => {
   if (err.response?.status === 401) {
-    events.emit('unauthorized');
+    events.emit("unauthorized");
   }
 
   const errMsg = [
     `${err.config.method?.toUpperCase()} ${err.request?.responseURL}`,
     `Request ${format(err.config.data)}`,
     `Response ${stringify(err.response?.data)}`,
-  ].join('\n');
+  ].join("\n");
   console.error(errMsg);
 
   err.message = errMsg;

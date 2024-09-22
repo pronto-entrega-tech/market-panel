@@ -1,11 +1,11 @@
-import { ReactNode } from 'react';
-import { Container, Title, SubTitle, TryAgainButton } from './styles';
+import { ReactNode } from "react";
+import { Container, Title, SubTitle, TryAgainButton } from "./styles";
 
-type ErrorType = 'internet' | 'server';
+type ErrorType = "internet" | "server";
 
 const errorMsg = {
-  internet: 'Erro na conexão com a internet',
-  server: 'Erro ao tentar se conectar com o servidor',
+  internet: "Erro na conexão com a internet",
+  server: "Erro ao tentar se conectar com o servidor",
 };
 
 const MyErrors = (p: {

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import * as mui from '@mui/material';
+import styled from "styled-components";
+import * as mui from "@mui/material";
 
 export const Row = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ export const Title = styled.p`
 `;
 
 export const Button = styled(mui.Button).attrs({
-  variant: 'text',
+  variant: "text",
 })`
   width: 500px;
   align-self: center;

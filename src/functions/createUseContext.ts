@@ -1,4 +1,4 @@
-import { useContextSelector, Context } from 'use-context-selector';
+import { useContextSelector, Context } from "use-context-selector";
 
 export const createUseContext = <T, O extends object | undefined = undefined>(
   context: Context<T>,

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import * as mui from '@mui/material';
+import styled from "styled-components";
+import * as mui from "@mui/material";
 
 export const Container = styled.div`
   height: -webkit-fill-available;
@@ -27,7 +27,7 @@ export const Main = styled.div`
 `;
 
 export const ConfigButton = styled(mui.Button).attrs({
-  variant: 'text',
+  variant: "text",
 })`
   && {
     transition: 300ms;

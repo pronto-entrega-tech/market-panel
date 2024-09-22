@@ -1,12 +1,12 @@
-import { ClientConfig } from 'pg';
+import { ClientConfig } from "pg";
 
-type ValidFile = 'pg_hba' | 'pg_ctl';
+type ValidFile = "pg_hba" | "pg_ctl";
 type ValidQuery =
-  | 'selectDBs'
-  | 'selectTables'
-  | 'selectColumns'
-  | 'selectUsers';
-type PasswordName = 'token' | 'database';
+  | "selectDBs"
+  | "selectTables"
+  | "selectColumns"
+  | "selectUsers";
+type PasswordName = "token" | "database";
 
 type Local = {
   getReceipt(): Promise<string | undefined>;
@@ -38,7 +38,7 @@ type Local = {
   getPassword(name: PasswordName): Promise<string | null>;
 };
 
-export const local: Local = window['local'] ?? {
+export const local: Local = window["local"] ?? {
   setPassword(name, value) {
     localStorage.setItem(name, value);
   },

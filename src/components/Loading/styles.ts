@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { CircularProgress } from '@mui/material';
+import styled from "styled-components";
+import { CircularProgress } from "@mui/material";
 
 const Container = styled.div`
   height: 100%;

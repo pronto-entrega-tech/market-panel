@@ -1,22 +1,22 @@
 @font-face {
-  font-family: 'Roboto';
-  src: url('../assets/fonts/roboto-latin-400.woff2') format('woff2');
+  font-family: "Roboto";
+  src: url("../assets/fonts/roboto-latin-400.woff2") format("woff2");
   font-style: normal;
   font-weight: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Roboto';
-  src: url('../assets/fonts/roboto-latin-500.woff2') format('woff2');
+  font-family: "Roboto";
+  src: url("../assets/fonts/roboto-latin-500.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Roboto';
-  src: url('../assets/fonts/roboto-latin-700.woff2') format('woff2');
+  font-family: "Roboto";
+  src: url("../assets/fonts/roboto-latin-700.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -54,7 +54,7 @@ body {
   user-select: none;
   -webkit-user-select: none;
   color: rgba(0, 0, 0, 0.86);
-  font-family: 'Roboto';
+  font-family: "Roboto";
   overflow: hidden;
 }
 

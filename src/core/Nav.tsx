@@ -1,17 +1,17 @@
-import styled from 'styled-components';
-import { useLocation, useNavigate } from 'react-router-dom';
-import * as mui from '@mui/material';
+import styled from "styled-components";
+import { useLocation, useNavigate } from "react-router-dom";
+import * as mui from "@mui/material";
 import {
   Cart as OrdersIcon,
   PackageVariantClosed as StockIcon,
   Cog as ConfigIcon,
   HelpCircle as HelpIcon,
-} from 'mdi-material-ui';
-import { Page } from '~/constants/pages';
-import LogoSvg from '~/assets/logo-icon.svg';
-import { componentWidth } from '~/constants/componentWidths';
-import { ReactNode } from 'react';
-import { ZIndex } from '~/constants/zIndex';
+} from "mdi-material-ui";
+import { Page } from "~/constants/pages";
+import LogoSvg from "~/assets/logo-icon.svg";
+import { componentWidth } from "~/constants/componentWidths";
+import { ReactNode } from "react";
+import { ZIndex } from "~/constants/zIndex";
 
 const SideNav = styled.nav`
   display: flex;
@@ -32,8 +32,8 @@ const Bottom = styled.div`
 `;
 
 const Button = styled(mui.Button).attrs({
-  variant: 'text',
-  size: 'large',
+  variant: "text",
+  size: "large",
 })`
   && {
     margin-top: 8px;
@@ -60,7 +60,7 @@ const Button = styled(mui.Button).attrs({
 
 const LogoIcon = styled(mui.SvgIcon).attrs({
   component: LogoSvg,
-  viewBox: '0 0 280 280',
+  viewBox: "0 0 280 280",
 })`
   height: 80px;
   width: 80px;
@@ -70,8 +70,8 @@ const LogoIcon = styled(mui.SvgIcon).attrs({
 
 const Badge = styled(mui.Badge).attrs({
   invisible: true,
-  variant: 'dot',
-  color: 'error',
+  variant: "dot",
+  color: "error",
 })``;
 
 const Nav = () => (
@@ -104,15 +104,16 @@ const NavButton = ({
   children: ReactNode;
 }) => {
   const navigate = useNavigate();
-  const [, currentPath] = useLocation().pathname.split('/');
+  const [, currentPath] = useLocation().pathname.split("/");
 
   return (
     <Button
       onClick={() => navigate(path)}
-      className={currentPath === path ? 'selected' : 'unselected'}
+      className={currentPath === path ? "selected" : "unselected"}
       startIcon={
-        <Icon color='inherit' sx={{ height: '26px', width: '26px' }} />
-      }>
+        <Icon color="inherit" sx={{ height: "26px", width: "26px" }} />
+      }
+    >
       {children}
     </Button>
   );

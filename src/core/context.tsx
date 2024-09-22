@@ -1,15 +1,15 @@
-import { useCallback, useEffect, useState, ReactNode } from 'react';
-import { createContext } from 'use-context-selector';
-import { AlertState } from '~/components/MyAlert';
-import { TopAlertType } from '~/components/TopAlert';
-import { createUseContext } from '~/functions/createUseContext';
-import { api } from '~/services/api';
-import { io, Socket } from 'socket.io-client';
-import { Url } from '~/constants/urls';
-import { events } from '~/services/events';
-import { AccessToken, innerSetAccessToken } from './accessToken';
-import { getTokenExp } from '~/functions/tokenExp';
-import { Notif } from '~/components/Notification';
+import { useCallback, useEffect, useState, ReactNode } from "react";
+import { createContext } from "use-context-selector";
+import { AlertState } from "~/components/MyAlert";
+import { TopAlertType } from "~/components/TopAlert";
+import { createUseContext } from "~/functions/createUseContext";
+import { api } from "~/services/api";
+import { io, Socket } from "socket.io-client";
+import { Url } from "~/constants/urls";
+import { events } from "~/services/events";
+import { AccessToken, innerSetAccessToken } from "./accessToken";
+import { getTokenExp } from "~/functions/tokenExp";
+import { Notif } from "~/components/Notification";
 
 const useProviderValues = () => {
   const [statefulAccessToken, setStatefulAccessToken] = useState<AccessToken>();
@@ -28,17 +28,17 @@ const useProviderValues = () => {
   }, []);
 
   const topAlertType: TopAlertType | undefined = hasConnectionErr
-    ? 'connection'
+    ? "connection"
     : hasSocketErr
-    ? 'socket'
-    : undefined;
+      ? "socket"
+      : undefined;
 
   useEffect(() => {
-    window.addEventListener('online', () => setConnectionErr(false));
-    window.addEventListener('offline', () => setConnectionErr(true));
+    window.addEventListener("online", () => setConnectionErr(false));
+    window.addEventListener("offline", () => setConnectionErr(true));
 
-    const clear1 = events.on('unauthorized', () => setAccessToken(null));
-    const clear2 = events.on('accessTokenUpdated', setStatefulAccessToken);
+    const clear1 = events.on("unauthorized", () => setAccessToken(null));
+    const clear2 = events.on("accessTokenUpdated", setStatefulAccessToken);
 
     return () => {
       clear1();
@@ -76,11 +76,11 @@ const useProviderValues = () => {
     if (!isAuthed) return;
 
     const socket = io(Url.ApiWs, {
-      transports: ['websocket'],
+      transports: ["websocket"],
       auth: { token: statefulAccessToken },
     });
-    socket.on('connect', () => setSocketErr(false));
-    socket.on('connect_error', () => setSocketErr(true));
+    socket.on("connect", () => setSocketErr(false));
+    socket.on("connect_error", () => setSocketErr(true));
     setSocket(socket);
 
     return () => {
@@ -98,7 +98,7 @@ const useProviderValues = () => {
     (
       title: string,
       subtitle?: string,
-      opts?: Omit<AlertState, 'title' | 'subtitle'>,
+      opts?: Omit<AlertState, "title" | "subtitle">,
     ) => setAlertState({ title, subtitle, ...opts } as AlertState),
     [],
   );
@@ -114,7 +114,7 @@ const useProviderValues = () => {
   );
 
   const dismissNotifies = useCallback(
-    (fn: (metadata: Notif['metadata']) => boolean) =>
+    (fn: (metadata: Notif["metadata"]) => boolean) =>
       setNotifies((arr) => arr.filter((v) => !fn(v.metadata))),
     [],
   );

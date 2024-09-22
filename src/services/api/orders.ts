@@ -1,12 +1,12 @@
-import { OrderAction } from '~/core/types';
-import { transformOrder } from '~/functions/transform';
-import utils from './utils';
+import { OrderAction } from "~/core/types";
+import { transformOrder } from "~/functions/transform";
+import utils from "./utils";
 
 const { apiCall, authHeader } = utils;
 
 export default {
   async findMany() {
-    const { data } = await apiCall.get<[]>('/orders', await authHeader());
+    const { data } = await apiCall.get<[]>("/orders", await authHeader());
     return data.map(transformOrder);
   },
 

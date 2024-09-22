@@ -1,20 +1,20 @@
-import { isToday, isTomorrow, lightFormat } from 'date-fns';
-import { ProfileType, BusinessHour, SpecialDay } from '~/core/types';
-import { omit } from './omit';
-import { range } from './range';
-import { timeStringToMs } from './timeStringToMs';
+import { isToday, isTomorrow, lightFormat } from "date-fns";
+import { ProfileType, BusinessHour, SpecialDay } from "~/core/types";
+import { omit } from "./omit";
+import { range } from "./range";
+import { timeStringToMs } from "./timeStringToMs";
 
 export const weekDayArray = [
-  'SUN',
-  'MON',
-  'TUE',
-  'WED',
-  'THU',
-  'FRI',
-  'SAT',
+  "SUN",
+  "MON",
+  "TUE",
+  "WED",
+  "THU",
+  "FRI",
+  "SAT",
 ] as const;
 
-type NormalizedBHs = Omit<BusinessHour, 'days'> & {
+type NormalizedBHs = Omit<BusinessHour, "days"> & {
   day: number;
 };
 
@@ -22,14 +22,14 @@ export const getOpennessMsg = (
   openness: ReturnType<typeof getMarketOpenness>,
 ) => {
   const { isOpen, nextHour } = openness;
-  const openedOrClosed = isOpen ? 'Aberto' : 'Fechado';
+  const openedOrClosed = isOpen ? "Aberto" : "Fechado";
 
   if (!nextHour) return openedOrClosed;
 
-  const ofTomorrowOfNot = nextHour.isTomorrow ? ' de amanhã' : '';
+  const ofTomorrowOfNot = nextHour.isTomorrow ? " de amanhã" : "";
   const earlyOrNot = nextHour.isEarly
-    ? ` (${isOpen ? 'Abriu' : 'Fechou'} mais cedo)`
-    : '';
+    ? ` (${isOpen ? "Abriu" : "Fechou"} mais cedo)`
+    : "";
 
   return `${openedOrClosed} até ${nextHour.time}${ofTomorrowOfNot}${earlyOrNot}`;
 };
@@ -40,10 +40,10 @@ export const getMarketOpenness = (
 ) => {
   const now = new Date();
   const weekday = now.getDay();
-  const nowInMs = timeStringToMs(lightFormat(now, 'HH:mm'));
+  const nowInMs = timeStringToMs(lightFormat(now, "HH:mm"));
 
   const normalizeBH = (day: number) => (hb: BusinessHour | SpecialDay) => ({
-    ...('days' in hb ? omit(hb, 'days') : hb),
+    ...("days" in hb ? omit(hb, "days") : hb),
     day,
   });
   const futureBHs = (() => {
@@ -65,13 +65,13 @@ export const getMarketOpenness = (
   const todayFlips = open_flips.filter((v) => isToday(v.created_at));
   const flip = todayFlips.at(0);
   const flipInMs =
-    (flip && timeStringToMs(lightFormat(flip.created_at, 'HH:mm'))) ?? 0;
+    (flip && timeStringToMs(lightFormat(flip.created_at, "HH:mm"))) ?? 0;
 
   const isClosedByFlip = (openInMs: number) => {
-    if (flip?.type === 'CLOSE_UNTIL_NEXT_DAY') {
+    if (flip?.type === "CLOSE_UNTIL_NEXT_DAY") {
       return flipInMs <= nowInMs;
     }
-    if (flip?.type === 'CLOSE_UNTIL_NEXT_OPEN') {
+    if (flip?.type === "CLOSE_UNTIL_NEXT_OPEN") {
       return flipInMs <= nowInMs && flipInMs <= openInMs;
     }
     return false;
@@ -112,7 +112,7 @@ export const getMarketOpenness = (
       const scheduledOpenInMs = timeStringToMs(open_time);
 
       const openedByFlip =
-        flip?.type === 'OPEN' && flipInMs < scheduledOpenInMs;
+        flip?.type === "OPEN" && flipInMs < scheduledOpenInMs;
 
       return {
         openedByFlip,
@@ -164,4 +164,4 @@ export const getMarketOpenness = (
   };
 };
 
-const trimStartZero = (text: string) => text.replace(/^.{0}0/, '');
+const trimStartZero = (text: string) => text.replace(/^.{0}0/, "");

@@ -4,7 +4,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
-} from '@mui/material';
+} from "@mui/material";
 import {
   Container,
   TextGrid,
@@ -27,16 +27,16 @@ import {
   Total,
   OrderTableContainer,
   OrderButton,
-} from './styles';
-import Chat from './Chat';
-import { OrderType } from '~/core/types';
-import { moneyString } from '~/functions/money';
-import { getStatusName, getStatusColor } from '~/functions/orderStatus';
-import { api } from '~/services/api';
-import { Central } from '~/components/Central/styles';
-import { useLoading } from '~/hooks/useLoading';
-import { formatTime, formatOrderId } from '~/functions/format';
-import { useOpenChatContext } from '~/contexts/ChatContext';
+} from "./styles";
+import Chat from "./Chat";
+import { OrderType } from "~/core/types";
+import { moneyString } from "~/functions/money";
+import { getStatusName, getStatusColor } from "~/functions/orderStatus";
+import { api } from "~/services/api";
+import { Central } from "~/components/Central/styles";
+import { useLoading } from "~/hooks/useLoading";
+import { formatTime, formatOrderId } from "~/functions/format";
+import { useOpenChatContext } from "~/contexts/ChatContext";
 
 const getOrderInfo = (o: OrderType) => {
   const id = formatOrderId(o.market_order_id);
@@ -57,10 +57,10 @@ const formatAddress = (o: OrderType) =>
 
 const formatPayment = (o: OrderType) => {
   const onAppOrDelivery = o.paid_in_app
-    ? 'Pago no App'
-    : 'Pagamento na Entrega';
+    ? "Pago no App"
+    : "Pagamento na Entrega";
 
-  const change = o.payment_change ? ` (Troco para R$${o.payment_change})` : '';
+  const change = o.payment_change ? ` (Troco para R$${o.payment_change})` : "";
 
   return `${onAppOrDelivery} - ${o.payment_description}${change}`;
 };
@@ -78,8 +78,8 @@ function OrderDetails({ order }: { order?: OrderType }) {
 
   const [buttonTitle, nextAction] =
     {
-      APPROVAL_PENDING: ['Confirmar', 'APPROVE'],
-      PROCESSING: ['Sair para entrega', 'DELIVERY'],
+      APPROVAL_PENDING: ["Confirmar", "APPROVE"],
+      PROCESSING: ["Sair para entrega", "DELIVERY"],
     }[order.status] ?? [];
 
   const action = withLoading(async () => {
@@ -101,7 +101,7 @@ function OrderDetails({ order }: { order?: OrderType }) {
         <Time>Previsão {formatDeliveryTime(order)}</Time>
         <AddressIcon />
         <Address>{formatAddress(order)}</Address>
-        <Complement>{order.address_complement || 'Sem complemento'}</Complement>
+        <Complement>{order.address_complement || "Sem complemento"}</Complement>
         {order.paid_in_app ? <CheckIcon /> : <AlertIcon />}
         <Payment>{formatPayment(order)}</Payment>
         <SubtotalLabel>Subtotal</SubtotalLabel>
@@ -112,14 +112,14 @@ function OrderDetails({ order }: { order?: OrderType }) {
         <Total>{moneyString(order.total)}</Total>
       </TextGrid>
       <OrderTableContainer>
-        <Table size='small'>
+        <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell width='68px'>Código</TableCell>
-              <TableCell width='68px' align='right'>
+              <TableCell width="68px">Código</TableCell>
+              <TableCell width="68px" align="right">
                 Preço
               </TableCell>
-              <TableCell width='26px' align='right'>
+              <TableCell width="26px" align="right">
                 Qtd.
               </TableCell>
               <TableCell>Descrição</TableCell>
@@ -129,8 +129,8 @@ function OrderDetails({ order }: { order?: OrderType }) {
             {order.items.map(({ code, price, quantity, description }) => (
               <TableRow key={code}>
                 <TableCell>{code}</TableCell>
-                <TableCell align='right'>{moneyString(price)}</TableCell>
-                <TableCell align='right'>{quantity}x</TableCell>
+                <TableCell align="right">{moneyString(price)}</TableCell>
+                <TableCell align="right">{quantity}x</TableCell>
                 <TableCell>{description}</TableCell>
               </TableRow>
             ))}

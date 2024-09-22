@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Row,
   Title,
@@ -7,9 +7,9 @@ import {
   DialogContainer,
   DialogTitle,
   DialogButton,
-} from './styles';
-import { dbCreateUser, dbRead } from '~/core/dbConnect';
-import { Circle as ConnectionIcon } from 'mdi-material-ui';
+} from "./styles";
+import { dbCreateUser, dbRead } from "~/core/dbConnect";
+import { Circle as ConnectionIcon } from "mdi-material-ui";
 
 type DialogData = {
   title: string;
@@ -44,23 +44,23 @@ function Plugin() {
     new Promise<string[]>((resolve) => {
       setDialogData({
         title,
-        values: [...items, 'confirmar'],
+        values: [...items, "confirmar"],
         confirm: resolve,
         multiSelect: true,
       });
     });
 
   const autoConfig = async () => {
-    setDialogData({ title: 'Carregando...' });
+    setDialogData({ title: "Carregando..." });
     setDialogOpen(true);
 
     const res = await dbCreateUser(dialog, dialogMulti);
 
-    setIntegrated(res === 'success');
+    setIntegrated(res === "success");
     const title = {
-      success: 'Configurado com sucesso',
-      error: 'Erro, não foi possível auto configurar',
-      restart: 'Reinicie o banco de dados, e tente novamente',
+      success: "Configurado com sucesso",
+      error: "Erro, não foi possível auto configurar",
+      restart: "Reinicie o banco de dados, e tente novamente",
     }[res];
     setDialogData({ title });
   };
@@ -68,15 +68,15 @@ function Plugin() {
     <>
       <Row>
         <ConnectionIcon
-          fontSize='small'
-          color={isIntegrated ? 'success' : 'error'}
+          fontSize="small"
+          color={isIntegrated ? "success" : "error"}
         />
         {/* {isIntegrated ? (
           <PlugIcon color='success' />
         ) : (
           <PlugOffIcon color='error' />
         )} */}
-        <Title>Sistema{isIntegrated ? '' : ' não'} integrado</Title>
+        <Title>Sistema{isIntegrated ? "" : " não"} integrado</Title>
       </Row>
       <Button onClick={autoConfig}>Auto configurar</Button>
       <Button onClick={dbRead}>teste</Button>
@@ -119,8 +119,9 @@ function PluginDialog({
       <DialogButton
         key={value}
         onClick={isConfirmButton ? confirm : addColumn}
-        variant={isConfirmButton ? 'contained' : 'text'}
-        color={isSelected || isConfirmButton ? 'primary' : undefined}>
+        variant={isConfirmButton ? "contained" : "text"}
+        color={isSelected || isConfirmButton ? "primary" : undefined}
+      >
         {value}
       </DialogButton>
     );
@@ -130,7 +131,7 @@ function PluginDialog({
       <DialogContainer>
         <DialogTitle>{data.title}</DialogTitle>
         {rows}
-        <DialogButton color='primary' variant='outlined' onClick={close}>
+        <DialogButton color="primary" variant="outlined" onClick={close}>
           Fechar
         </DialogButton>
       </DialogContainer>

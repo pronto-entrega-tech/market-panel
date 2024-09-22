@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import StockItem from './StockItem';
-import StockEdit from './StockEdit';
-import StockHist, { useStockHistState } from './StockHist';
-import { ProductType } from '~/core/types';
+import { useEffect, useState } from "react";
+import StockItem from "./StockItem";
+import StockEdit from "./StockEdit";
+import StockHist, { useStockHistState } from "./StockHist";
+import { ProductType } from "~/core/types";
 import {
   Container,
   HeaderLine,
@@ -10,19 +10,19 @@ import {
   Receipt,
   ReceiptIcon,
   OrderList,
-} from './styles';
-import { local } from '~/services/local';
-import { transformProduct } from '~/functions/transform';
-import useMyContext from '~/core/context';
-import MyErrors from '~/components/Errors';
-import Loading from '~/components/Loading';
-import { FixedSizeList } from 'react-window';
-import { useWindowSize } from '~/hooks/useWindowSize';
-import { componentWidth } from '~/constants/componentWidths';
-import { api } from '~/services/api';
-import { errMsg } from '~/constants/errorMessages';
-import { useStockEditContext } from '~/contexts/StockEditContext';
-import { useLoading } from '~/hooks/useLoading';
+} from "./styles";
+import { local } from "~/services/local";
+import { transformProduct } from "~/functions/transform";
+import useMyContext from "~/core/context";
+import MyErrors from "~/components/Errors";
+import Loading from "~/components/Loading";
+import { FixedSizeList } from "react-window";
+import { useWindowSize } from "~/hooks/useWindowSize";
+import { componentWidth } from "~/constants/componentWidths";
+import { api } from "~/services/api";
+import { errMsg } from "~/constants/errorMessages";
+import { useStockEditContext } from "~/contexts/StockEditContext";
+import { useLoading } from "~/hooks/useLoading";
 
 type ProductMap = Map<string, ProductType>;
 
@@ -33,13 +33,13 @@ export const useStockState = () => {
   const [isLoading, , withLoading] = useLoading();
   const [products, setProducts] = useState<ProductMap>();
   const [queryProducts, setQueryProducts] = useState<ProductMap>();
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     if (!socket) return;
 
     try {
-      socket.on('items', (...newProducts: any[]) => {
+      socket.on("items", (...newProducts: any[]) => {
         newProducts.forEach((raw) => {
           const newProduct = transformProduct(raw);
 
@@ -56,7 +56,7 @@ export const useStockState = () => {
           updateProduct(newProduct);
         });
       });
-      socket.emit('items');
+      socket.emit("items");
     } catch {
       return setError(true);
     }
@@ -105,7 +105,7 @@ const StockSelect = ({
     console.log(receipt);
   };
 
-  if (hasError) return <MyErrors type='server' />;
+  if (hasError) return <MyErrors type="server" />;
   if (!products || isLoading) return <Loading />;
 
   const productsValues = [...(queryProducts ?? products).values()];
@@ -116,8 +116,8 @@ const StockSelect = ({
         <SearchBar
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onKeyPress={(e) => e.key === 'Enter' && fetchQuery()}
-          placeholder='Busque por código ou descrição'
+          onKeyPress={(e) => e.key === "Enter" && fetchQuery()}
+          placeholder="Busque por código ou descrição"
         />
         <Receipt onClick={receipt}>
           <ReceiptIcon />
@@ -127,7 +127,8 @@ const StockSelect = ({
         height={height - 64}
         width={componentWidth.stockSelect}
         itemCount={productsValues.length}
-        itemSize={75}>
+        itemSize={75}
+      >
         {({ index, style }) => {
           const product = productsValues[index];
           return (

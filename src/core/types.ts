@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from "react";
 
 export type SetState<T> = Dispatch<SetStateAction<T>>;
 
@@ -18,7 +18,7 @@ export type SpecialDay = {
 
 export type OpenFlip = {
   created_at: Date;
-  type: 'OPEN' | 'CLOSE_UNTIL_NEXT_DAY' | 'CLOSE_UNTIL_NEXT_OPEN';
+  type: "OPEN" | "CLOSE_UNTIL_NEXT_DAY" | "CLOSE_UNTIL_NEXT_OPEN";
 };
 
 export type CreateMarketDto = {
@@ -44,24 +44,24 @@ export type CreateMarketDto = {
 
 export type ProfileType = Pick<
   CreateMarketDto,
-  | 'name'
-  | 'document'
-  | 'pix_key_type'
-  | 'pix_key'
-  | 'payments_accepted'
-  | 'order_min'
-  | 'delivery_fee'
-  | 'min_time'
-  | 'max_time'
-  | 'markup'
-  | 'business_hours'
+  | "name"
+  | "document"
+  | "pix_key_type"
+  | "pix_key"
+  | "payments_accepted"
+  | "order_min"
+  | "delivery_fee"
+  | "min_time"
+  | "max_time"
+  | "markup"
+  | "business_hours"
 > & {
   market_id: string;
   special_days: SpecialDay[];
   open_flips: OpenFlip[];
 };
 
-type ChatMessageAuthor = 'CUSTOMER' | 'MARKET';
+type ChatMessageAuthor = "CUSTOMER" | "MARKET";
 
 export type ChatMsg = {
   id: string;
@@ -76,24 +76,24 @@ export type ChatMsg = {
 
 export type CreateChatMsgDto = Pick<
   ChatMsg,
-  'market_id' | 'order_id' | 'message'
+  "market_id" | "order_id" | "message"
 >;
 
 export type PendingChatMsg = CreateChatMsgDto & { hasError?: boolean };
 
-export type OrderAction = 'APPROVE' | 'DELIVERY' | 'COMPLETE' | 'CANCEL';
+export type OrderAction = "APPROVE" | "DELIVERY" | "COMPLETE" | "CANCEL";
 
 export type OrderStatus =
-  | 'PAYMENT_PROCESSING'
-  | 'PAYMENT_FAILED'
-  | 'PAYMENT_REQUIRE_ACTION'
-  | 'APPROVAL_PENDING'
-  | 'PROCESSING'
-  | 'DELIVERY_PENDING'
-  | 'COMPLETING'
-  | 'COMPLETED'
-  | 'CANCELING'
-  | 'CANCELED';
+  | "PAYMENT_PROCESSING"
+  | "PAYMENT_FAILED"
+  | "PAYMENT_REQUIRE_ACTION"
+  | "APPROVAL_PENDING"
+  | "PROCESSING"
+  | "DELIVERY_PENDING"
+  | "COMPLETING"
+  | "COMPLETED"
+  | "CANCELING"
+  | "CANCELED";
 
 export type OrderType = {
   order_id: string;
@@ -115,16 +115,16 @@ export type OrderType = {
   payment_change?: string;
   delivery_fee: string;
   total: string;
-  items: (Omit<ProductType, 'stock'> & { quantity: string })[];
+  items: (Omit<ProductType, "stock"> & { quantity: string })[];
 };
 
 export type OrderUpdate = Partial<OrderType> & { order_id: string };
 
 export type DiscountType =
-  | 'DISCOUNT_VALUE'
-  | 'DISCOUNT_PERCENT'
-  | 'DISCOUNT_PERCENT_ON_SECOND'
-  | 'ONE_FREE';
+  | "DISCOUNT_VALUE"
+  | "DISCOUNT_PERCENT"
+  | "DISCOUNT_PERCENT_ON_SECOND"
+  | "ONE_FREE";
 
 export type ProductType = {
   key: string;
@@ -148,7 +148,7 @@ export type ProductType = {
 
 export type ProductActivity = {
   item_id: string;
-  action: 'CREATE' | 'UPDATE' | 'DELETE';
+  action: "CREATE" | "UPDATE" | "DELETE";
   product_code: string;
   item_name: string;
   occurred_at: string;
@@ -158,19 +158,19 @@ export type ProductActivity = {
 
 export type SetProductDto = Pick<
   ProductType,
-  | 'item_id'
-  | 'city_slug'
-  | 'code'
-  | 'price'
-  | 'stock'
-  | 'unit_weight'
-  | 'discount_type'
-  | 'discount_value_1'
-  | 'discount_value_2'
-  | 'discount_max_per_client'
+  | "item_id"
+  | "city_slug"
+  | "code"
+  | "price"
+  | "stock"
+  | "unit_weight"
+  | "discount_type"
+  | "discount_value_1"
+  | "discount_value_2"
+  | "discount_max_per_client"
 >;
 
-export type SubPermission = 'STOCK' | 'DELIVERY';
+export type SubPermission = "STOCK" | "DELIVERY";
 
 export type MarketSub = {
   id: string;
@@ -179,4 +179,4 @@ export type MarketSub = {
   permissions: SubPermission[];
 };
 
-export type CreateSubDto = Pick<MarketSub, 'name' | 'permissions'>;
+export type CreateSubDto = Pick<MarketSub, "name" | "permissions">;

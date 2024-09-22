@@ -1,7 +1,7 @@
-import React from 'react';
-import { ChatProvider } from '~/contexts/ChatContext';
-import { StockEditProvider } from '~/contexts/StockEditContext';
-import { MyProvider as CommonProvider } from './context';
+import React from "react";
+import { ChatProvider } from "~/contexts/ChatContext";
+import { StockEditProvider } from "~/contexts/StockEditContext";
+import { MyProvider as CommonProvider } from "./context";
 
 export const AppContexts = ({ children }: any) =>
   nestComponents(children, [CommonProvider, ChatProvider, StockEditProvider]);

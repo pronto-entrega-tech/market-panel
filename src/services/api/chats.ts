@@ -1,13 +1,13 @@
-import { ChatMsg, CreateChatMsgDto } from '~/core/types';
-import { transformCreatedAt } from '~/functions/transform';
-import utils from './utils';
+import { ChatMsg, CreateChatMsgDto } from "~/core/types";
+import { transformCreatedAt } from "~/functions/transform";
+import utils from "./utils";
 
 const { apiCall, authHeader } = utils;
 
 export default {
   async create(dto: CreateChatMsgDto) {
     const { data } = await apiCall.post<ChatMsg>(
-      '/chats',
+      "/chats",
       dto,
       await authHeader(),
     );
