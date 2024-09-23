@@ -1,9 +1,9 @@
-const cache = new Map<string, Promise<any>>();
+const cache = new Map<string, Promise<unknown>>();
 
 export const withCache = async <T>(key: string, fn: () => Promise<T>) => {
   const getPromise = (): Promise<T | Error> => {
     const promise = cache.get(key);
-    if (promise) return promise;
+    if (promise) return promise as Promise<T | Error>;
 
     const newPromise = fn().catch((err) => err);
 

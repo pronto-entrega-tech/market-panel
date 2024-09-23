@@ -105,15 +105,21 @@ function PluginDialog({
     const isConfirmButton = data.multiSelect && i === data.values.length - 1;
 
     const addColumn = () => {
-      isSelected
-        ? setColumns(columns.filter((i) => i !== value))
-        : setColumns(columns.concat(value));
+      if (isSelected) {
+        setColumns(columns.filter((i) => i !== value));
+      } else {
+        setColumns(columns.concat(value));
+      }
     };
     const confirm = () => {
       close();
       setColumns([]);
 
-      data.multiSelect ? data.confirm(columns) : data.confirm(value);
+      if (data.multiSelect) {
+        data.confirm(columns);
+      } else {
+        data.confirm(value);
+      }
     };
     return (
       <DialogButton

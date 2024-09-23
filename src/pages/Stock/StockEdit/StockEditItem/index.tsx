@@ -128,7 +128,7 @@ function StockEditItem({ productKey }: { productKey: string }) {
       <DiscountTypeSelect
         value={discount_type}
         onChange={({ target: { value } }) =>
-          setState({ discount_type: value as any })
+          setState({ discount_type: value as DiscountType })
         }
       >
         <MenuItem value="">Nenhum</MenuItem>

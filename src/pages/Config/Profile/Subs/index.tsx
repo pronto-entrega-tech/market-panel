@@ -43,7 +43,7 @@ const permissionsMap: { [x in SubPermission]: string } = {
 const Subs = () => {
   const { alert } = useMyContext();
   const [isLoading, , withLoading] = useLoading();
-  const [hasError, setError] = useState<any>();
+  const [hasError, setError] = useState<unknown>();
   const [subs, setSubs] = useState<MarketSub[]>();
   const [dialogState, openDialog, closeDialog] = useModalState();
   const [updateDialogState, openUpdateDialog, closeUpdateDialog] =
@@ -68,16 +68,18 @@ const Subs = () => {
     }
   });
 
-  const updateSub = withLoading(async (id, dto: Partial<CreateSubDto>) => {
-    try {
-      const sub = await api.subs.update(id, dto);
+  const updateSub = withLoading(
+    async (id: string, dto: Partial<CreateSubDto>) => {
+      try {
+        const sub = await api.subs.update(id, dto);
 
-      setSubs(subs.map((v) => (v.id === sub.id ? { ...v, ...sub } : v)));
-      closeUpdateDialog();
-    } catch {
-      alert(errMsg.server());
-    }
-  });
+        setSubs(subs.map((v) => (v.id === sub.id ? { ...v, ...sub } : v)));
+        closeUpdateDialog();
+      } catch {
+        alert(errMsg.server());
+      }
+    },
+  );
 
   const deleteSub = (sub: MarketSub) => {
     const _delete = withLoading(async () => {

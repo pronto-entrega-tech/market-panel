@@ -1,5 +1,4 @@
 import { lightFormat } from "date-fns";
-import { useState } from "react";
 import GoBackHeader from "~/components/GoBackHeader";
 import Loading from "~/components/Loading";
 import { errMsg } from "~/constants/errorMessages";
@@ -8,7 +7,6 @@ import { SpecialDay } from "~/core/types";
 import { useGoBack } from "~/hooks/useGoBack";
 import { useLoading } from "~/hooks/useLoading";
 import { api } from "~/services/api";
-import { useProfileState } from "..";
 import {
   Container,
   HoursContainer,
@@ -20,15 +18,7 @@ import {
   CreateButton,
   ErrorText,
 } from "./styles";
-
-export const useSpecialDaysState = ({
-  profile,
-  setProfile,
-}: ReturnType<typeof useProfileState>) => {
-  const [specialDays, setSpecialDays] = useState(profile?.special_days ?? []);
-
-  return { specialDays, setSpecialDays, setProfile };
-};
+import { useSpecialDaysState } from "./useSpecialDaysState";
 
 const SpecialDays = ({
   specialDays,
@@ -110,7 +100,7 @@ const SpecialDays = ({
       await api.markets.update({ special_days: specialDays });
       setProfile((v) => v && { ...v, special_days: specialDays });
       goBack();
-    } catch (err) {
+    } catch {
       alert(errMsg.server());
     }
   });

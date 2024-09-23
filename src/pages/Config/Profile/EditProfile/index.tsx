@@ -29,7 +29,7 @@ import { errMsg } from "~/constants/errorMessages";
 import Loading from "~/components/Loading";
 import { useLoading } from "~/hooks/useLoading";
 import produce from "immer";
-import { useProfileState } from "~/pages/Config/Profile";
+import { useProfileState } from "../useProfileState";
 import GoBackHeader from "~/components/GoBackHeader";
 import { pick } from "~/functions/pick";
 
@@ -80,6 +80,7 @@ const EditProfile = ({
     ? digitsMask
     : undefined;
 
+  type Options = { prefix?: string; suffix?: string; type?: string };
   const props = [
     ["name", "Nome"],
     ["document", "CNPJ", CNPJMask],
@@ -87,15 +88,20 @@ const EditProfile = ({
       "order_min",
       "Valor mínimo do pedido",
       decimalMask,
-      { prefix: "R$", type: "half" },
+      { prefix: "R$", type: "half" } as Options,
     ],
     [
       "delivery_fee",
       "Taxa de entrega",
       decimalMask,
-      { prefix: "R$", type: "half" },
+      { prefix: "R$", type: "half" } as Options,
     ],
-    ["markup", "Markup", decimalMask, { suffix: "%", type: "half1" }],
+    [
+      "markup",
+      "Markup",
+      decimalMask,
+      { suffix: "%", type: "half1" } as Options,
+    ],
     [
       "min_time",
       "Tempo de entrega",
@@ -106,14 +112,14 @@ const EditProfile = ({
       "max_time",
       "",
       integerMask,
-      { prefix: "Máximo", suffix: "minutos", type: "half" },
+      { prefix: "Máximo", suffix: "minutos", type: "half" } as Options,
     ],
-    ["pix_key", "Chave pix", pixKeyMask, { type: "half2" }],
+    ["pix_key", "Chave pix", pixKeyMask, { type: "half2" } as Options],
   ] satisfies [
     keyof CreateMarketDto,
     string,
     ((v: string) => string)?,
-    { prefix?: string; suffix?: string; type?: string }?,
+    Options?,
   ][];
 
   const createAccount = withLoading(async () => {
@@ -137,7 +143,7 @@ const EditProfile = ({
     try {
       await api.markets.update(validDto);
       setProfile((v) => v && { ...v, ...validDto });
-    } catch (err) {
+    } catch {
       alert(errMsg.server());
     }
   });
@@ -151,12 +157,14 @@ const EditProfile = ({
     const add = (value: string) =>
       setDto(produce((dto) => void dto.payments_accepted.push(value)));
 
-    name === "Outro"
-      ? alert("Nome do pagamento", "", {
-          showInput: true,
-          onConfirm: (input) => add(input),
-        })
-      : add(name);
+    if (name === "Outro") {
+      alert("Nome do pagamento", "", {
+        showInput: true,
+        onConfirm: (input) => add(input),
+      });
+    } else {
+      add(name);
+    }
   };
 
   const removePayment = (value: string) => {
@@ -166,12 +174,7 @@ const EditProfile = ({
   };
 
   const inputs = props.map(
-    ([
-      prop,
-      name,
-      mask = (v: string) => v,
-      { prefix, suffix, type } = {} as any,
-    ]) => (
+    ([prop, name, mask = (v: string) => v, { prefix, suffix, type } = {}]) => (
       <Input
         key={name}
         label={name}

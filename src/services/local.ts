@@ -38,7 +38,8 @@ type Local = {
   getPassword(name: PasswordName): Promise<string | null>;
 };
 
-export const local: Local = (window as any).local ?? {
+// @ts-expect-error: local not defined
+export const local: Local = window.local ?? {
   setPassword(name, value) {
     localStorage.setItem(name, value);
   },

@@ -1,5 +1,4 @@
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
-import { useState, useEffect } from "react";
 import GoBackHeader from "~/components/GoBackHeader";
 import Loading from "~/components/Loading";
 import { errMsg } from "~/constants/errorMessages";
@@ -8,7 +7,6 @@ import { BusinessHour } from "~/core/types";
 import { useGoBack } from "~/hooks/useGoBack";
 import { useLoading } from "~/hooks/useLoading";
 import { api } from "~/services/api";
-import { useProfileState } from "..";
 import {
   Container,
   HoursContainer,
@@ -20,6 +18,7 @@ import {
   CreateButton,
   ErrorText,
 } from "./styles";
+import { useBusinessHours } from "./useBusinessHours";
 
 const weekDays = [
   ["SUN", "DOM"],
@@ -30,23 +29,6 @@ const weekDays = [
   ["FRI", "SEX"],
   ["SAT", "SAB"],
 ];
-
-export const useBusinessHours = ({
-  profile,
-  setProfile,
-}: ReturnType<typeof useProfileState>) => {
-  const [businessHours, setBusinessHours] = useState(
-    profile?.business_hours ?? [],
-  );
-
-  useEffect(() => {
-    setBusinessHours((v) =>
-      profile && !v.length ? profile.business_hours : v,
-    );
-  }, [profile]);
-
-  return { businessHours, setBusinessHours, setProfile };
-};
 
 const EditBusinessHours = ({
   businessHours,
@@ -131,7 +113,7 @@ const EditBusinessHours = ({
       await api.markets.update({ business_hours: businessHours });
       setProfile((v) => v && { ...v, business_hours: businessHours });
       goBack();
-    } catch (err) {
+    } catch {
       alert(errMsg.server());
     }
   });

@@ -86,44 +86,50 @@ const SignOn = (p: { createToken: string }) => {
     ? digitsMask
     : undefined;
 
-  const props = [
+  type Options = { prefix?: string; suffix?: string; type?: string };
+  const myProps = [
     ["name", "Nome"],
     ["document", "CNPJ", CNPJMask],
     [
       "order_min",
       "Valor mínimo do pedido",
       decimalMask,
-      { prefix: "R$", type: "half" },
+      { prefix: "R$", type: "half" } as Options,
     ],
     [
       "delivery_fee",
       "Taxa de entrega",
       decimalMask,
-      { prefix: "R$", type: "half" },
+      { prefix: "R$", type: "half" } as Options,
     ],
-    ["markup", "Markup", decimalMask, { suffix: "%", type: "half1" }],
+    [
+      "markup",
+      "Markup",
+      decimalMask,
+      { suffix: "%", type: "half1" } as Options,
+    ],
     [
       "min_time",
       "Tempo de entrega",
       integerMask,
-      { prefix: "Mínimo", suffix: "minutos", type: "half" },
+      { prefix: "Mínimo", suffix: "minutos", type: "half" } as Options,
     ],
     [
       "max_time",
       "",
       integerMask,
-      { prefix: "Máximo", suffix: "minutos", type: "half" },
+      { prefix: "Máximo", suffix: "minutos", type: "half" } as Options,
     ],
-    ["pix_key", "Chave pix", pixKeyMask, { type: "half2" }],
+    ["pix_key", "Chave pix", pixKeyMask, { type: "half2" } as Options],
   ] satisfies [
     keyof CreateMarketDto,
     string,
     ((v: string) => string)?,
-    { prefix?: string; suffix?: string; type?: string }?,
+    Options?,
   ][];
 
   const createAccount = withLoading(async () => {
-    const [hasErr, errs] = props.reduce<[boolean, Record<string, boolean>]>(
+    const [hasErr, errs] = myProps.reduce<[boolean, Record<string, boolean>]>(
       ([hasErr, errs], [prop]) => {
         const value = dto[prop];
         if (Array.isArray(value) ? value.length : value) return [hasErr, errs];
@@ -167,12 +173,14 @@ const SignOn = (p: { createToken: string }) => {
     const add = (value: string) =>
       setDto(produce((dto) => void dto.payments_accepted.push(value)));
 
-    name === "Outro"
-      ? alert("Nome do pagamento", "", {
-          showInput: true,
-          onConfirm: (input) => add(input),
-        })
-      : add(name);
+    if (name === "Outro") {
+      alert("Nome do pagamento", "", {
+        showInput: true,
+        onConfirm: (input) => add(input),
+      });
+    } else {
+      add(name);
+    }
   };
 
   const removePayment = (value: string) => {
@@ -214,13 +222,8 @@ const SignOn = (p: { createToken: string }) => {
     );
   };
 
-  const inputs = props.map(
-    ([
-      prop,
-      name,
-      mask = (v: string) => v,
-      { prefix, suffix, type } = {} as any,
-    ]) => (
+  const inputs = myProps.map(
+    ([prop, name, mask = (v: string) => v, { prefix, suffix, type } = {}]) => (
       <Input
         key={name}
         label={name}

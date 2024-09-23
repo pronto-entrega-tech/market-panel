@@ -50,7 +50,7 @@ export default {
     return transformProfile(data);
   },
 
-  async update(dto: any) {
+  async update(dto: unknown) {
     await apiCall.patch<ProfileType>("/markets", dto, await authHeader());
   },
 

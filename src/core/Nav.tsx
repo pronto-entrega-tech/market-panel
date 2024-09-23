@@ -10,7 +10,7 @@ import {
 import { Page } from "~/constants/pages";
 import { Logo } from "~/components/Logo";
 import { componentWidth } from "~/constants/componentWidths";
-import { ReactNode } from "react";
+import { ComponentType, ReactNode } from "react";
 import { ZIndex } from "~/constants/zIndex";
 
 const SideNav = styled.nav`
@@ -97,7 +97,7 @@ const NavButton = ({
   path,
   children,
 }: {
-  Icon: any;
+  Icon: ComponentType<mui.SvgIconProps>;
   path: string;
   children: ReactNode;
 }) => {
@@ -117,13 +117,13 @@ const NavButton = ({
   );
 };
 
-const OrdersIconB = (props: any) => (
+const OrdersIconB = (props: mui.SvgIconProps) => (
   <Badge>
     <OrdersIcon {...props} />
   </Badge>
 );
 
-const ConfigIconB = (props: any) => (
+const ConfigIconB = (props: mui.SvgIconProps) => (
   <Badge>
     <ConfigIcon {...props} />
   </Badge>

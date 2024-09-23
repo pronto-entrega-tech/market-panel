@@ -4,7 +4,8 @@ import {
   readConfigRequest,
 } from "secure-electron-store";
 
-const rawStore = (window as any).local?.store as
+// @ts-expect-error: local not defined
+const rawStore = window.local?.store as
   | undefined
   | {
       send: (config: string, key: string, value?: unknown) => void;

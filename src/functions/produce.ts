@@ -1,4 +1,4 @@
-export const produce = <T extends Record<string, any> | Array<any>>(
+export const produce = <T extends Record<string, unknown> | Array<unknown>>(
   v: T,
   fn: (v: T) => void,
 ): T => {

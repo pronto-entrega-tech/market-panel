@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   OrderType,
   ProductType,
@@ -7,7 +8,7 @@ import {
 } from "~/core/types";
 import { cleanString } from "./cleanString";
 
-export const filterUndefined = (o: any) => {
+export const filterUndefined = (o: UnknownRecord) => {
   Object.entries(o).forEach(([k, v]) => {
     if (v === undefined) delete o[k];
   });

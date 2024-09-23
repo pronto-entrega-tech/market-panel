@@ -1,4 +1,7 @@
-const getStatus = (err: any) => err.response?.status;
+import axios from "axios";
+
+const getStatus = (err: unknown) =>
+  axios.isAxiosError(err) && err.response?.status;
 
 export const is401 = (err: unknown) => getStatus(err) === 401;
 

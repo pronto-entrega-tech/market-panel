@@ -16,7 +16,7 @@ export type Address = {
   address_complement?: string;
 };
 
-const props: [keyof CreateMarketDto, string, string?][] = [
+const myProps: [keyof CreateMarketDto, string, string?][] = [
   ["address_street", "Rua", "half1"],
   ["address_number", "Numero", "half2"],
   ["address_district", "Bairro"],
@@ -40,7 +40,7 @@ const ConfirmAddress = (p: {
   if (isLoading) return <Loading />;
 
   const confirm = withLoading(async () => {
-    const [hasErr, errs] = props
+    const [hasErr, errs] = myProps
       .slice(0, -1)
       .reduce<[boolean, Record<string, boolean>]>(
         ([hasErr, errs], [prop]) => {
@@ -70,7 +70,7 @@ const ConfirmAddress = (p: {
     }
   });
 
-  const inputs = props.map(([prop, name, type]) => (
+  const inputs = myProps.map(([prop, name, type]) => (
     <Input
       key={name}
       label={name}

@@ -7,18 +7,17 @@ declare module "secure-electron-store" {
 }
 
 // Optimization
-declare type Omit<T, K extends keyof any> = {
+declare type Omit<T, K extends keyof object> = {
   [P in Exclude<keyof T, K>]: T[P];
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare interface Array<T> {
   /**
    * Is like filter but mutates the array.
    */
   pick(
     predicate: (value: T, index: number, array: T[]) => boolean,
-    thisArg?: any,
+    thisArg?: unknown,
   ): void;
 }
 
@@ -29,3 +28,5 @@ declare interface Map<K, V> {
    */
   remove(key: K): this;
 }
+
+declare type UnknownRecord = Record<string, unknown>;

@@ -18,11 +18,11 @@ const apiCall = axios.create({
   ],
 });
 
-const stringify = (v: any) => JSON.stringify(v, null, 2);
-const format = (v: any) => {
+const stringify = (v: unknown) => JSON.stringify(v, null, 2);
+const format = (v: string) => {
   try {
     return v && stringify(JSON.parse(v));
-  } catch (err) {
+  } catch {
     return "ERROR";
   }
 };

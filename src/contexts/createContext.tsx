@@ -47,6 +47,7 @@ export const createContext = <Value extends object>(useValue: () => Value) => {
       useContextOrig(context) ?? fail(`Missing provider for ${useValue.name}`);
     return new Proxy({} as Value, {
       get: (_, name) => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
         return useSyncExternalStore(
           store.subscribe,
           () => store.value[name as keyof Value],

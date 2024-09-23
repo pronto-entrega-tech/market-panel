@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import { Camera as CameraIcon } from "mdi-material-ui";
 import { local } from "~/services/local";
 import { api } from "~/services/api";
-import { OpenFlip, ProfileType } from "~/core/types";
+import { OpenFlip } from "~/core/types";
 import MyErrors from "~/components/Errors";
 import Loading from "~/components/Loading";
 import { errMsg } from "~/constants/errorMessages";
@@ -28,22 +28,8 @@ import { timeStringToMs } from "~/functions/timeStringToMs";
 import { useNavigate } from "react-router-dom";
 import { Page } from "~/constants/pages";
 import { getImageUrl } from "~/functions/imageUrl";
-import { useError } from "~/hooks/useError";
 import { Backdrop } from "@mui/material";
-
-export const useProfileState = () => {
-  const { socket } = useMyContext();
-  const [hasError, setError, tryAgain] = useError();
-  const [profile, setProfile] = useState<ProfileType>();
-
-  useEffect(() => {
-    if (!socket || hasError) return;
-
-    api.markets.find().then(setProfile).catch(setError);
-  }, [socket, hasError, setError]);
-
-  return { profile, setProfile, hasError, tryAgain };
-};
+import { useProfileState } from "./useProfileState";
 
 function Profile({
   profile,
