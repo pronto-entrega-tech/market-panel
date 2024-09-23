@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 export type Notif = {
   title: string;
   body?: string;
-  metadata?: any;
+  metadata?: Record<string, string>;
 };
 
 const Notifications = () => {

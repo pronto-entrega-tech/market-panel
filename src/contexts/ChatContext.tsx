@@ -1,10 +1,9 @@
-import { ReactNode, useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Socket } from "socket.io-client";
-import { createContext, useContextSelector } from "use-context-selector";
 import { notifyMsg } from "~/constants/notifyMessages";
-import useMyContext from "~/core/context";
+import { useMyContext } from "~/core/context";
 import { ChatMsg, CreateChatMsgDto, PendingChatMsg } from "~/core/types";
-import { createUseContext } from "~/functions/createUseContext";
+import { createContext } from "~/contexts/createContext";
 import { fail } from "~/functions/fail";
 import { transformCreatedAt } from "~/functions/transform";
 import { api } from "~/services/api";
@@ -12,7 +11,7 @@ import { withMutex } from "~/services/mutex";
 
 type ChatMap = Map<string, ChatMsg>;
 
-const useProviderValues = () => {
+function useChat() {
   const { socket, notify, dismissNotifies } = useMyContext();
   const [allOpenChats, setAllOpenChats] = useState<string[]>([]);
   const [newMsgs, setNewMsgs] = useState<ChatMsg[]>([]);
@@ -74,7 +73,7 @@ const useProviderValues = () => {
 
   useEffect(() => {
     allOpenChats.forEach((customer_id) => {
-      dismissNotifies((v) => v.customer_id === customer_id);
+      dismissNotifies((v) => v?.customer_id === customer_id);
     });
   }, [allOpenChats, dismissNotifies]);
 
@@ -163,29 +162,17 @@ const useProviderValues = () => {
     addMsg,
     retryAddMsg,
   };
-};
+}
 
-type ChatContextValues = ReturnType<typeof useProviderValues>;
-
-const ChatContext = createContext({} as ChatContextValues);
-
-const PublicContext = {
-  ...({} as Omit<
-    ChatContextValues,
-    "getChat" | "allPendingMsgs" | "allOpenChats" | "openChat" | "closeChat"
-  >),
-}; // Just for the typing
-
-export const useChatContext = createUseContext<typeof PublicContext>(
-  ChatContext as any,
-);
+export const [ChatProvider, useChatContext, useChatContextSelector] =
+  createContext(useChat);
 
 export const useOpenChatContext = (customer_id: string) => {
-  const isOpen = useContextSelector(ChatContext, (v) =>
+  const isOpen = useChatContextSelector((v) =>
     v.allOpenChats.includes(customer_id),
   );
-  const openChat = useContextSelector(ChatContext, (v) => v.openChat);
-  const closeChat = useContextSelector(ChatContext, (v) => v.closeChat);
+  const openChat = useChatContextSelector((v) => v.openChat);
+  const closeChat = useChatContextSelector((v) => v.closeChat);
 
   return {
     isOpen,
@@ -195,14 +182,9 @@ export const useOpenChatContext = (customer_id: string) => {
 };
 
 export const useChatItemContext = (customer_id: string) => {
-  const chat = useContextSelector(ChatContext, (v) => v.getChat(customer_id));
+  const chat = useChatContextSelector((v) => v.getChat(customer_id));
   const pendingMsgs =
-    useContextSelector(ChatContext, (v) => v.allPendingMsgs.get(customer_id)) ??
-    [];
+    useChatContextSelector((v) => v.allPendingMsgs.get(customer_id)) ?? [];
 
   return { chat, pendingMsgs };
 };
-
-export const ChatProvider = (props: { children: ReactNode }) => (
-  <ChatContext.Provider value={useProviderValues()} {...props} />
-);

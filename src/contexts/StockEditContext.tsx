@@ -1,21 +1,18 @@
-import { useState, ReactNode, useCallback } from "react";
-import { createContext, useContextSelector } from "use-context-selector";
+import { useState, useCallback } from "react";
 import { errMsg } from "~/constants/errorMessages";
-import useMyContext from "~/core/context";
+import { useMyContext } from "~/core/context";
 import { DiscountType, ProductType, SetProductDto } from "~/core/types";
-import { createUseContext } from "~/functions/createUseContext";
+import { createContext } from "~/contexts/createContext";
 import { fail } from "~/functions/fail";
 import { api } from "~/services/api";
 import { pick } from "~/functions/pick";
 
-const productNotStatefulProps = [
-  "item_id",
-  "city_slug",
-  "code",
-  "isNew",
-  "key",
-] as const;
-type ProductNotStatefulProps = (typeof productNotStatefulProps)[number];
+type ProductNotStatefulProps =
+  | "item_id"
+  | "city_slug"
+  | "code"
+  | "isNew"
+  | "key";
 
 export type StockState = {
   product: ProductType;
@@ -81,7 +78,7 @@ const createDto = (v: StockState): SetProductDto => {
   };
 };
 
-const useProviderValues = () => {
+const useStockEdit = () => {
   const { alert } = useMyContext();
   const [isLoading, setLoading] = useState(false);
   const [states, _setStates] = useState(new Map<string, StockState>());
@@ -144,9 +141,11 @@ const useProviderValues = () => {
         setLoading(true);
         const dto = createDto(s);
 
-        s.product.isNew
-          ? await api.products.create(dto)
-          : await api.products.update(dto);
+        if (s.product.isNew) {
+          await api.products.create(dto);
+        } else {
+          await api.products.update(dto);
+        }
 
         unselectStock(s.product.key);
       } catch {
@@ -164,9 +163,11 @@ const useProviderValues = () => {
         [...states.values()].map(async (v) => {
           const dto = createDto(v);
 
-          v.product.isNew
-            ? await api.products.create(dto)
-            : await api.products.update(dto);
+          if (v.product.isNew) {
+            await api.products.create(dto);
+          } else {
+            await api.products.update(dto);
+          }
 
           unselectStock(v.product.key);
         }),
@@ -190,28 +191,18 @@ const useProviderValues = () => {
   };
 };
 
-type StockEditContextValues = ReturnType<typeof useProviderValues>;
-
-const StockEditContext = createContext({} as StockEditContextValues);
-
-const PublicContext = {
-  ...({} as Omit<StockEditContextValues, "getState" | "confirm">),
-}; // Just for the typing
-
-export const useStockEditContext = createUseContext<typeof PublicContext>(
-  StockEditContext as any,
-);
+export const [
+  StockEditProvider,
+  useStockEditContext,
+  useStockEditContextSelector,
+] = createContext(useStockEdit);
 
 export const useStockEditItemContext = (key: string) => {
-  const state = useContextSelector(StockEditContext, (v) => v.getState(key));
-  const confirm = useContextSelector(StockEditContext, (v) => v.confirm);
+  const state = useStockEditContextSelector((v) => v.getState(key));
+  const confirm = useStockEditContextSelector((v) => v.confirm);
 
   return {
     ...state,
     confirm: () => confirm(state),
   };
 };
-
-export const StockEditProvider = (props: { children: ReactNode }) => (
-  <StockEditContext.Provider value={useProviderValues()} {...props} />
-);

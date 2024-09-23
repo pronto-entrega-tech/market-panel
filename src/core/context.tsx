@@ -1,8 +1,7 @@
-import { useCallback, useEffect, useState, ReactNode } from "react";
-import { createContext } from "use-context-selector";
+import { useCallback, useEffect, useState } from "react";
 import { AlertState } from "~/components/MyAlert";
 import { TopAlertType } from "~/components/TopAlert";
-import { createUseContext } from "~/functions/createUseContext";
+import { createContext } from "~/contexts/createContext";
 import { api } from "~/services/api";
 import { io, Socket } from "socket.io-client";
 import { Url } from "~/constants/urls";
@@ -11,7 +10,7 @@ import { AccessToken, innerSetAccessToken } from "./accessToken";
 import { getTokenExp } from "~/functions/tokenExp";
 import { Notif } from "~/components/Notification";
 
-const useProviderValues = () => {
+const useCommon = () => {
   const [statefulAccessToken, setStatefulAccessToken] = useState<AccessToken>();
   const [socket, setSocket] = useState<Socket>();
   const [alertState, setAlertState] = useState<AlertState>();
@@ -108,7 +107,7 @@ const useProviderValues = () => {
   };
 
   const notify = useCallback(
-    (title: string, body?: string, metadata?: any) =>
+    (title: string, body?: string, metadata?: Notif["metadata"]) =>
       setNotifies((arr) => [...arr, { title, body, metadata }]),
     [],
   );
@@ -140,14 +139,6 @@ const useProviderValues = () => {
   };
 };
 
-type MyContextValues = ReturnType<typeof useProviderValues>;
-
-const MyContext = createContext({} as MyContextValues);
-
-const useMyContext = createUseContext(MyContext);
-
-export const MyProvider = (props: { children: ReactNode }) => (
-  <MyContext.Provider value={useProviderValues()} {...props} />
-);
+export const [MyProvider, useMyContext] = createContext(useCommon);
 
 export default useMyContext;
