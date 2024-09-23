@@ -3,7 +3,7 @@ const { promisify } = require("util");
 const { ipcMain, dialog } = require("electron");
 const { Client } = require("pg");
 const fsPro = require("fs/promises");
-const glob = promisify(require("glob"));
+const glob = require("glob");
 const exec = promisify(require("child_process").exec);
 const keytar = require("keytar");
 

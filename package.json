@@ -14,9 +14,7 @@
     "format": "prettier . --write",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "type-check": "tsc --noEmit",
-    "test": "mocha",
-    "postinstall": "electron-builder install-app-deps",
-    "fix": "rm yarn.lock && npm i && yarn import && yarn && rm package-lock.json"
+    "postinstall": "electron-builder install-app-deps"
   },
   "build": {
     "publish": [
@@ -51,17 +49,16 @@
   ],
   "dependencies": {
     "@loadable/component": "^5.15.2",
-    "@mui/material": "^5.9.0",
+    "@mui/material": "^6.1.1",
     "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest",
-    "axios": "^0.27.2",
-    "date-fns": "^2.29.1",
+    "axios": "^1.7.7",
+    "date-fns": "^4.1.0",
     "electron-updater": "^5.0.5",
-    "glob": "^8.0.3",
-    "immer": "^9.0.15",
+    "glob": "^11.0.0",
+    "immer": "^10.1.1",
     "keytar": "^7.9.0",
     "lodash": "4.17.21",
     "mdi-material-ui": "^7.4.0",
-    "node-hid": "^2.1.1",
     "pg": "^8.7.3",
     "process": "^0.11.10",
     "react": "^18.2.0",
@@ -69,19 +66,17 @@
     "react-qr-code": "^2.0.7",
     "react-router-dom": "^6.3.0",
     "react-window": "^1.8.6",
-    "reflect-metadata": "^0.1.13",
+    "reflect-metadata": "^0.2.2",
     "secure-electron-context-menu": "^1.3.3",
     "secure-electron-store": "^4.0.2",
     "socket.io-client": "^4.5.1",
-    "styled-components": "^5.3.5",
+    "styled-components": "^6.1.13",
     "ts-pattern": "^5.3.1"
   },
   "devDependencies": {
     "@doyensec/electronegativity": "^1.9.1",
     "@eslint/js": "^9.11.0",
-    "@types/glob": "^7.2.0",
     "@types/loadable__component": "^5.13.4",
-    "@types/node-hid": "^1.3.1",
     "@types/pg": "^8.6.5",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
@@ -89,26 +84,26 @@
     "@types/react-window": "^1.8.5",
     "@types/styled-components": "^5.1.25",
     "@vitejs/plugin-react": "^4.3.1",
-    "concurrently": "^7.2.2",
+    "concurrently": "^9.0.1",
     "cross-env": "^7.0.3",
     "electron": "^19.0.6",
     "electron-builder": "^23.1.0",
     "electron-debug": "^3.2.0",
-    "electron-devtools-installer": "git+https://github.com/ganeshrvel/electron-devtools-installer.git#fix/electron-18",
+    "electron-devtools-installer": "3.2.0",
     "eslint": "^9.11.0",
     "eslint-plugin-react": "^7.36.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.12",
     "globals": "^15.9.0",
-    "mocha": "^10.0.0",
     "prettier": "^3.3.3",
-    "spectron": "^19.0.0",
     "typescript": "^5.6.2",
     "typescript-eslint": "^8.6.0",
     "vite": "^5.4.7",
     "vite-tsconfig-paths": "^5.0.1"
   },
-  "resolutions": {
-    "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest"
+  "pnpm": {
+    "overrides": {
+      "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest"
+    }
   }
 }

@@ -42,7 +42,7 @@ import { is404 } from "~/functions/errors";
 import { errMsg } from "~/constants/errorMessages";
 import Loading from "~/components/Loading";
 import { useLoading } from "~/hooks/useLoading";
-import produce from "immer";
+import { produce } from "immer";
 
 const weekDays = [
   ["SUN", "DOM"],

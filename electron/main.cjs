@@ -180,26 +180,6 @@ async function createWindow() {
     autoUpdater.checkForUpdatesAndNotify();
   });
 
-  // Only do these things when in development
-  if (isDev) {
-    // Errors are thrown if the dev tools are opened
-    // before the DOM is ready
-    const {
-      default: installExtension,
-      REACT_DEVELOPER_TOOLS,
-    } = require("electron-devtools-installer");
-
-    win.webContents.once("dom-ready", async () => {
-      await installExtension(REACT_DEVELOPER_TOOLS)
-        .then((name) => console.log(`Added Extension:  ${name}`))
-        .catch((err) => console.log("An error occurred: ", err))
-        .finally(() => {
-          require("electron-debug")(); // https://github.com/sindresorhus/electron-debug
-          win.webContents.openDevTools();
-        });
-    });
-  }
-
   // Emitted when the window is closed.
   win.on("closed", () => {
     // Dereference the window object, usually you would store windows

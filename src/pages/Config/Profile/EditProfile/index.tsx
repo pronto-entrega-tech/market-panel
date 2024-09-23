@@ -28,7 +28,7 @@ import { api } from "~/services/api";
 import { errMsg } from "~/constants/errorMessages";
 import Loading from "~/components/Loading";
 import { useLoading } from "~/hooks/useLoading";
-import produce from "immer";
+import { produce } from "immer";
 import { useProfileState } from "../useProfileState";
 import GoBackHeader from "~/components/GoBackHeader";
 import { pick } from "~/functions/pick";

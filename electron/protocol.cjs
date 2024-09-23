@@ -15,7 +15,7 @@ Implementing a custom protocol achieves two goals:
 const fs = require("fs");
 const path = require("path");
 
-const BUILD_PATH = path.join(__dirname, "../build");
+const DIST_PATH = path.join(__dirname, "../dist");
 const scheme = "app";
 
 const mimeTypes = {
@@ -51,8 +51,7 @@ function requestHandler(req, next) {
     reqPath = "/index.html";
   }
   const reqFilename = path.basename(reqPath);
-
-  fs.readFile(path.join(BUILD_PATH, reqPath), (err, data) => {
+  fs.readFile(path.join(DIST_PATH, reqPath), (err, data) => {
     const { mimeExt, mimeType } = mime(reqFilename);
     if (!err && mimeType !== null) {
       next({
