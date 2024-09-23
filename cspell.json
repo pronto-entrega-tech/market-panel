@@ -1,4 +1,13 @@
 {
   "language": "en,pt-BR",
-  "words": ["Authed", "flexbox", "immer", "keytar", "Notif", "Roboto", "Wifi"]
+  "words": [
+    "Authed",
+    "flexbox",
+    "immer",
+    "keytar",
+    "Notif",
+    "Roboto",
+    "tseslint",
+    "Wifi"
+  ]
 }
