@@ -1,6 +1,6 @@
 # Market Panel (web and desktop app)
 
-![screenshot of app](/docs/screenshot.jpeg)
+![screenshot of app](/docs/screenshot.png)
 
 ## Use `mise` to manage node and pnpm
 
